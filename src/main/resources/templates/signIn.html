@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!--  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/all.min.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/animate.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/flaticon.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/odometer.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/nice-select.css}" />-->
+<!--  <link rel="stylesheet" th:href="@{/css/main.css}" />-->
+<!--  <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">-->
+
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../static/css/all.min.css" />
+  <link rel="stylesheet" href="../static/css/animate.css" />
+  <link rel="stylesheet" href="../static/css/flaticon.css" />
+  <link rel="stylesheet" href="../static/css/magnific-popup.css" />
+  <link rel="stylesheet" href="../static/css/odometer.css" />
+  <link rel="stylesheet" href="../static/css/owl.carousel.min.css" />
+  <link rel="stylesheet" href="../static/css/owl.theme.default.min.css" />
+  <link rel="stylesheet" href="../static/css/nice-select.css" />
+  <link rel="stylesheet" href="../static/css/main.css" />
+
+  <style>
+    .validation {
+      color: #b60404;
+      text-transform: capitalize;
+    }
+  </style>
+  <title>Boleto - Online Ticket Booking Website HTML Template</title>
+<!--  <link rel="stylesheet" href="../static/css/bootstrap.min.css">-->
+<!--  <link rel="stylesheet" href="../static/css/main.css">-->
+</head>
+
+<body>
+<!-- ==========Preloader========== -->
+<div class="preloader" >
+  <div class="preloader-inner">
+    <div class="preloader-icon">
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div>
+<!-- ==========Preloader========== -->
+
+<!-- ==========Sign-In-Section========== -->
+<section class="account-section bg_img" data-background="/images/account/account-bg.jpg">
+  <div class="container">
+    <div class="padding-top padding-bottom">
+      <div class="account-area">
+        <div class="section-header-3">
+          <span class="cate">hi there</span>
+          <h2 class="title">welcome</h2>
+        </div>
+        <form class="account-form" th:action="@{checkSignIn}" th:object="${user}" method="post">
+          <div class="form-group">
+            <label for="email2">Email<span>*</span></label>
+            <input name="email" type="email" placeholder="Enter Your Email" id="email2" required autocomplete="off">
+            <span class="validation" th:text="${emailValidation}"></span>
+          </div>
+          <div class="form-group">
+            <label for="pass3">Password<span>*</span></label>
+            <input name="password" type="password" placeholder="Password" id="pass3" required autocomplete="off">
+            <span class="validation" th:text="${passwordValidation}"></span>
+          </div>
+          <div class="form-group checkgroup">
+            <input type="checkbox" id="bal2">
+            <label for="bal2">remember password</label>
+            <a href="#0" class="forget-pass">Forget Password</a>
+          </div>
+          <div class="form-group text-center">
+            <input type="submit" value="log in">
+          </div>
+        </form>
+        <div class="option">
+          Don't have an account? <a href="sign-up.html">sign up now</a>
+        </div>
+        <div class="or"><span>Or</span></div>
+        <ul class="social-icons">
+          <li>
+            <a href="#0">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#0" class="active">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#0">
+              <i class="fab fa-google"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ==========Sign-In-Section========== -->
+
+<!--<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/modernizr-3.6.0.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/plugins.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/isotope.pkgd.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/magnific-popup.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/wow.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/countdown.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/viewport.jquery.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/js/nice-select.js}"></script>-->
+<!--<script type="text/javascript" th:src="@{/static/js/main.js}"></script>-->
+
+
+<script type="text/javascript" src="../static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../static/js/modernizr-3.6.0.min.js"></script>
+<script type="text/javascript" src="../static/js/plugins.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/isotope.pkgd.min.js"></script>
+<script type="text/javascript" src="../static/js/magnific-popup.min.js"></script>
+<script type="text/javascript" src="../static/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="../static/js/wow.min.js"></script>
+<script type="text/javascript" src="../static/js/countdown.min.js"></script>
+<script type="text/javascript" src="../static/js/odometer.min.js"></script>
+<script type="text/javascript" src="../static/js/viewport.jquery.js"></script>
+<script type="text/javascript" src="../static/js/nice-select.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
+</body>
+
+</html>
