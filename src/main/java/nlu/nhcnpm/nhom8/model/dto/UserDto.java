@@ -1,4 +1,4 @@
-package nlu.nhcnpm.nhom8.entity;
+package nlu.nhcnpm.nhom8.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,13 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@AllArgsConstructor
+public class UserDto {
     int id;
     String name;
     String email;
     String phoneNumber;
-    String password;
-
 }
