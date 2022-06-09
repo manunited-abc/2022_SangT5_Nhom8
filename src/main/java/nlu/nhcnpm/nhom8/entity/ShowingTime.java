@@ -5,35 +5,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Component
+@AllArgsConstructor
 @Entity
-@Table(name = "user")
-public class User {
+@Component
+@Table(name="showing_time")
+public class ShowingTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    String name;
-    String email;
-    String phoneNumber;
-    String password;
-    String avatar;
-    String role;
-    Date datePost;
-    Date dateModified;
-    int parent;
-    String status;
+    Date time;
+    @ManyToOne(fetch = FetchType.LAZY)
+    Theatre theatre;
     @OneToMany(
-            mappedBy = "user",
+            mappedBy = "showingTime",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )

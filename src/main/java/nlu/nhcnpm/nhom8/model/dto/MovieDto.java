@@ -5,14 +5,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@NoArgsConstructor
+public class MovieDto {
     int id;
     String name;
-    String email;
-    String phoneNumber;
+    String type;
+    String actor;
+    String director;
+    Date releaseTime;
+    String runningTime;
+    String description;
+    String language;
     String avatar;
+    String trailer;
 }

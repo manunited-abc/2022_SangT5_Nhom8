@@ -7,12 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-    int id;
-    String name;
-    String email;
-    String phoneNumber;
-    String avatar;
+@NoArgsConstructor
+public class ComboFoodDetailDto {
+    int idOrder;
+    int idComboFood;
+    int quantity;
 }
