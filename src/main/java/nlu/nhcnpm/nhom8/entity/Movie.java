@@ -9,35 +9,38 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Component
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "movie")
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
-    String email;
-    String phoneNumber;
-    String password;
+    String type;
+    String actor;
+    String director;
+    LocalDateTime releaseTime;
+    String runningTime;
+    String description;
+    String language;
     String avatar;
-    String role;
+    String trailer;
+    String statusShowing;
     LocalDateTime datePost;
     LocalDateTime dateModified;
     int parent;
     String status;
     @OneToMany(
-            mappedBy = "user",
+            mappedBy = "movie",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     Set<Order> orders;
-
 }

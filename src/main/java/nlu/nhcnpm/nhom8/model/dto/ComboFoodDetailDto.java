@@ -5,16 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDto implements Serializable {
-    int id;
-    String name;
-    String email;
-    String phoneNumber;
-    String avatar;
+@NoArgsConstructor
+public class ComboFoodDetailDto {
+    int idOrder;
+    int idComboFood;
+    int quantity;
 }

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/all.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/flaticon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/magnific-popup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/odometer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nice-select.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
+    <style>
+        .details-banner{
+            background-image: url("../images/banner/banner03.jpg");
+        }
+    .info-movie{
+        color: #9aace5;
+        font-size: 14px;
+    }
+    .item-header{
+        justify-content: flex-start;
+    }
+    </style>
+</head>
+
+<body>
+<!-- ==========Overlay========== -->
+<div class="overlay"></div>
+<a href="#0" class="scrollToTop">
+    <i class="fas fa-angle-up"></i>
+</a>
+    <!-- ==========Header-Section========== -->
+    <header th:replace="header :: header"></header>
+    <!-- ==========Banner-Section========== -->
+    <section class="details-banner bg_img" data-background="../images/banner/banner03.jpg" >
+        <div class="container">
+            <div class="details-banner-wrapper">
+                <div class="details-banner-thumb">
+                    <img th:src="@{'../images/movie/' + ${movie.avatar}}" alt="movie">
+                    <a th:href="@{${movie.trailer}}" class="video-popup">
+                        <img src="../images/movie/video-button.png" alt="movie">
+                    </a>
+                </div>
+                <div class="details-banner-content offset-lg-3">
+                    <h3 class="title" th:text="${movie.name}"></h3>
+                    <div class="item info-movie">
+                        <strong>Type &nbsp; </strong><span th:text="${movie.type}"></span>
+                    </div>
+                    <div class="item info-movie">
+                        <strong>Language &nbsp;  </strong><span th:text="${movie.language}"></span>
+                    </div>
+                    <div class="item info-movie">
+                        <strong>Release Date &nbsp;  </strong><span th:text="${movie.releaseTime}"></span>
+                    </div>
+                    <div class="item info-movie">
+                        <strong>Running Time &nbsp; </strong><span th:text="${movie.runningTime} +'m'"></span>
+                    </div>
+                    <div class="social-and-duration" style="justify-content: flex-end">
+                        <ul class="social-share">
+                            <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#0"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#0"><i class="fab fa-pinterest-p"></i></a></li>
+                            <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="#0"><i class="fab fa-google-plus-g"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- ==========Book-Section========== -->
+    <section class="book-section bg-one">
+        <div class="container">
+            <div class="book-wrapper offset-lg-3">
+                <div class="left-side">
+                    <div class="item">
+                        <div class="item-header" style="  justify-content: flex-start;">
+                            <div class="counter-area">
+                                <span class="counter-item" >Director</span>
+                            </div>
+                        </div>
+                        <p th:text="${movie.director}"></p>
+                    </div>
+                    <div class="item" style="max-width: 385px">
+                        <div class="item-header" style="justify-content: flex-start">
+                            <div class="counter-area">
+                                <span class="counter-item" >Actor</span>
+                            </div>
+                        </div>
+                        <p th:text="${movie.actor}"></p>
+                    </div>
+
+                </div>
+                <a href="#0" class="custom-button">book tickets</a>
+            </div>
+        </div>
+    </section>
+    <section class="movie-details-section padding-top padding-bottom">
+        <div class="container">
+            <div class="row justify-content-center flex-wrap-reverse mb--50">
+                <div class="col-lg-3 col-sm-10 col-md-6 mb-50">
+                    <div class="widget-1 widget-tags">
+                        <ul>
+                            <li>
+                                <a href="#0">2D</a>
+                            </li>
+                            <li>
+                                <a href="#0">imax 2D</a>
+                            </li>
+                            <li>
+                                <a href="#0">4DX</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget-1 widget-offer">
+                        <h3 class="title">Applicable offer</h3>
+                        <div class="offer-body">
+                        </div>
+                    </div>
+                    <div class="widget-1 widget-banner">
+                        <div class="widget-1-body">
+                            <a href="#0">
+                                <img src="../images/sidebar/banner/banner01.jpg" alt="banner">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 mb-50">
+                    <div class="movie-details">
+                        <h3 class="title">Description</h3>
+                        <div class="tab summery-review">
+                            <div class="tab-area">
+                                <div class="tab-item active">
+                                        <p th:text="${movie.description}"></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==========Newslater-Section========== -->
+    <footer th:replace="footer :: footer"></footer>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/modernizr-3.6.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/wow.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/countdown.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/viewport.jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/nice-select.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>
