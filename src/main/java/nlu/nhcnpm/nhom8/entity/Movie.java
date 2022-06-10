@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -25,16 +26,15 @@ public class Movie {
     String type;
     String actor;
     String director;
-    Date releaseTime;
+    LocalDateTime releaseTime;
     String runningTime;
     String description;
     String language;
     String avatar;
     String trailer;
     String statusShowing;
-    Date showingTime;
-    Date datePost;
-    Date dateModified;
+    LocalDateTime datePost;
+    LocalDateTime dateModified;
     int parent;
     String status;
     @OneToMany(

@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -21,8 +22,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    Date createDate;
-    Date showingDate;
+    LocalDateTime createDate;
+    LocalDateTime showingDate;
     @OneToMany(mappedBy = "order")
     Set<ComboFoodDetail> comboFoodDetails;
     @ManyToOne(fetch = FetchType.LAZY)

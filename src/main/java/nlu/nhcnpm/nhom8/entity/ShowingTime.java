@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -22,7 +25,7 @@ public class ShowingTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    Date time;
+    LocalTime time;
     @ManyToOne(fetch = FetchType.LAZY)
     Theatre theatre;
     @OneToMany(

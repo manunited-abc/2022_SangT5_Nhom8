@@ -22,6 +22,8 @@ public class Theatre {
     int id;
     String nameTheatre;
     String address;
+    @ManyToOne(fetch = FetchType.LAZY)
+    City city;
     @OneToMany(
             mappedBy = "theatre",
             cascade = CascadeType.ALL,
