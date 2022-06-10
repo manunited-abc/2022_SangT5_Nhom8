@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+=======
 
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 
@@ -24,9 +27,13 @@ public class SignInController {
         if (!user.getEmail().equals("e")) {
             model.addAttribute("emailValidation", "email is not exist");
             return "signIn :: email-validation";
+
         }
         String encryptPassword = encryptPassword(user.getPassword());
         if (!encryptPassword.equals("p")) {
+=======
+        } else if (!user.getPassword().equals("p")) {
+
             model.addAttribute("passwordValidation", "password is wrong");
             return "signIn :: password-validation";
         }
