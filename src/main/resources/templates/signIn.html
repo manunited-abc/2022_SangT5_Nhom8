@@ -121,9 +121,13 @@
               success : function(response) {
                 if (response.includes("email is not exist")) {
                   $("#email-validation").html(response)
+                  $("#password-validation").text("")
                 }
                 else if (response.includes("password is wrong")) {
                   $("#password-validation").html(response)
+                }
+                else {
+                  alert("sucessfully sign in")
                 }
               }
             });
