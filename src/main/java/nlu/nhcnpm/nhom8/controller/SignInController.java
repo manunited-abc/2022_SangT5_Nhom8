@@ -1,9 +1,9 @@
 package nlu.nhcnpm.nhom8.controller;
 
 import nlu.nhcnpm.nhom8.entity.User;
-import nlu.nhcnpm.nhom8.model.dto.ConstantSign;
-import nlu.nhcnpm.nhom8.model.dto.GoogleItem;
-import nlu.nhcnpm.nhom8.model.dto.GooglePojo;
+//import nlu.nhcnpm.nhom8.model.dto.ConstantSign;
+//import nlu.nhcnpm.nhom8.model.dto.GoogleItem;
+//import nlu.nhcnpm.nhom8.model.dto.GooglePojo;
 import nlu.nhcnpm.nhom8.model.dto.MovieDto;
 import nlu.nhcnpm.nhom8.service.MovieService;
 import nlu.nhcnpm.nhom8.service.UserService;
@@ -48,6 +48,7 @@ public class SignInController {
             model.addAttribute("passwordValidation", "password is wrong");
             return "signIn :: password-validation";
         }
+
         HttpSession session = request.getSession(true);
         session.setAttribute("user",userSuccessLogin);
         return "index";
