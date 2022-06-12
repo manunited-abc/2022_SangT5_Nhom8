@@ -137,7 +137,7 @@
                                                 <a th:href=@{'movie-detail/'+${movie.id}} th:text="${movie.name}"></a>
                                             </h5>
                                             <div class="movie-rating-percent">
-                                                <span class="content" th:text="'Release Date : '+ ${movie.releaseTime}"></span>
+                                                <span class="content" th:text="'Release Date : '+ ${#dates.format(movie.releaseTime,'dd-MM-yyyy')}"></span>
                                             </div>
                                         </div>
                                     </div>

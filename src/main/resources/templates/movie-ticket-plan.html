@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/all.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/flaticon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/magnific-popup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/odometer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nice-select.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mycss.scss}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
+    <style th:inline="text">
+        .details-banner{
+            background-image: url([[@{'../images/movie/' + ${movie.avatar}}]])!important;
+            background-position: 10% 11%;
+
+        }
+        .disable-btn{
+            background: #9e9e9e;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+    </style>
+</head>
+<body>
+<!-- ==========Preloader========== -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ==========Overlay========== -->
+<div class="overlay"></div>
+<a href="#0" class="scrollToTop">
+    <i class="fas fa-angle-up"></i>
+</a>
+<!-- ==========Header-Section========== -->
+<header th:replace="header :: header"></header>
+
+<!-- ==========Window-Warning-Section========== -->
+<section class="window-warning inActive">
+    <div class="lay"></div>
+    <div class="warning-item">
+        <h6 class="subtitle">Welcome! </h6>
+        <h4 class="title">Select Your Seats</h4>
+        <div class="thumb">
+            <img src="../images/movie/seat-plan.png" alt="movie">
+        </div>
+        <a href="movie-seat-plan.html" class="custom-button seatPlanButton">Seat Plans<i class="fas fa-angle-right"></i></a>
+    </div>
+</section>
+<!-- ==========Window-Warning-Section========== -->
+
+<!-- ==========Banner-Section========== -->
+<section class="details-banner hero-area bg_img" data-background="../images/banner/banner03.jpg" >
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-content">
+                <h3 class="title" th:text="${movie.name}"></h3>
+                <div class="tags">
+                    <a href="#0" th:text="${movie.director}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Book-Section========== -->
+<section class="book-section bg-one">
+    <div class="container">
+        <form class="ticket-search-form two" style="justify-content: space-evenly">
+            <div class="form-group" id="select-city">
+                <div class="thumb">
+                    <img src="../images/ticket/city.png" alt="ticket">
+                </div>
+                <span class="type">city</span>
+                <select class="select-bar">
+                    <div th:each="city : ${cities}" >
+                    <option th:value="${city.id}" th:text="${city.nameCity}" ></option>
+                    </div>
+                </select>
+            </div>
+            <div class="form-group" id="select-date">
+                <div class="thumb">
+                    <img src="../images/ticket/date.png" alt="ticket">
+                </div>
+                <span class="type">date</span>
+                <select class="select-bar" >
+                    <div th:each="showingDate : ${movie.showTimes}" >
+                    <option th:value="${#dates.format(showingDate,'dd-MM-yyyy')}" th:text="${#dates.format(showingDate,'dd-MM-yyyy')}" ></option>
+                    </div>
+                </select>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- ==========Book-Section========== -->
+
+<!-- ==========Movie-Section========== -->
+<div class="ticket-plan-section padding-bottom padding-top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 mb-5 mb-lg-0">
+                <ul class="seat-plan-wrapper bg-five " >
+
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-10">
+                <div class="widget-1 widget-banner">
+                    <div class="widget-1-body">
+                        <a href="#0">
+                            <img src="../images/sidebar/banner/banner03.jpg" alt="banner">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ==========Movie-Section========== -->
+
+<footer th:replace="footer :: footer"></footer>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/modernizr-3.6.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/wow.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/countdown.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/viewport.jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/nice-select.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script>
+</script>
+</body>
+</html>

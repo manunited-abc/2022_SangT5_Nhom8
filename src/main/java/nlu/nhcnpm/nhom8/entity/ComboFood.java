@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -24,5 +25,5 @@ public class ComboFood {
     String description;
     double price;
     @OneToMany(mappedBy = "comboFood")
-    Set<ComboFoodDetail> comboFoodDetails;
+    Set<ComboFoodDetail> comboFoodDetails = new HashSet<>();
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -23,6 +24,6 @@ public class Seat {
     String codeSeat;
     String typeSeat;
     @OneToMany(mappedBy = "seat")
-    Set<SeatDetail> seatDetails;
+    Set<SeatDetail> seatDetails = new HashSet<>();
             ;
 }
