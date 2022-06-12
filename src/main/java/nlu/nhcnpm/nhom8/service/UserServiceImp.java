@@ -25,14 +25,12 @@ public class UserServiceImp implements UserService{
         if (userSuccessLogin != null) {
             return userSuccessLogin;
         }
-
         return null;
     }
 
 
     @Override
     public boolean insertUser(String email, String password) {
-        System.out.println(email + " " +password);
         userRepository.insertUser(email, password);
         return true;
     }
