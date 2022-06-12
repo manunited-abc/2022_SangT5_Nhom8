@@ -1,17 +1,16 @@
 package nlu.nhcnpm.nhom8.repository;
 
 import nlu.nhcnpm.nhom8.entity.City;
-import nlu.nhcnpm.nhom8.entity.Movie;
 import nlu.nhcnpm.nhom8.entity.Theatre;
-import nlu.nhcnpm.nhom8.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface MovieRepository extends JpaRepository<Movie,Integer> {
-    @Query("select m from Movie m where m.statusShowing='now showing' and m.status='public' order by m.releaseTime desc ")
-    List<Movie> findAllMovieNowShowing();
-
+public interface CityRepository extends JpaRepository<City,Integer> {
+    @Query("select distinct c from City c JOIN fetch c.theatres")
+    public List<City> findAllCity();
+    @Query("select distinct c.id, c.nameCity from City c")
+    public List<Object[]> findAllCity2();
 }

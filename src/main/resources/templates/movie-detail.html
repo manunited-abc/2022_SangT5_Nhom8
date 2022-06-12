@@ -19,9 +19,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/nice-select.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
-    <style>
+    <style th:inline="text">
         .details-banner{
-            background-image: url("../images/banner/banner03.jpg");
+             background-image: url([[@{'../images/movie/' + ${movie.avatar}}]]);
+            background-position: 10% 11%;
+
         }
     .info-movie{
         color: #9aace5;
@@ -34,6 +36,15 @@
 </head>
 
 <body>
+<!-- ==========Preloader========== -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
 <!-- ==========Overlay========== -->
 <div class="overlay"></div>
 <a href="#0" class="scrollToTop">
@@ -42,7 +53,7 @@
     <!-- ==========Header-Section========== -->
     <header th:replace="header :: header"></header>
     <!-- ==========Banner-Section========== -->
-    <section class="details-banner bg_img" data-background="../images/banner/banner03.jpg" >
+    <section class="details-banner bg_img" data-background="@{'../images/movie/' + ${movie.avatar}+'}"  style="" >
         <div class="container">
             <div class="details-banner-wrapper">
                 <div class="details-banner-thumb">
@@ -60,7 +71,7 @@
                         <strong>Language &nbsp;  </strong><span th:text="${movie.language}"></span>
                     </div>
                     <div class="item info-movie">
-                        <strong>Release Date &nbsp;  </strong><span th:text="${movie.releaseTime}"></span>
+                        <strong>Release Date &nbsp;  </strong><span th:text="${#dates.format(movie.releaseTime,'dd-MM-yyyy')}"></span>
                     </div>
                     <div class="item info-movie">
                         <strong>Running Time &nbsp; </strong><span th:text="${movie.runningTime} +'m'"></span>
@@ -102,7 +113,7 @@
                     </div>
 
                 </div>
-                <a href="#0" class="custom-button">book tickets</a>
+                <a th:href=@{'../movie-ticket-plan/'+${movie.id}} class="custom-button">book tickets</a>
             </div>
         </div>
     </section>

@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -29,8 +27,8 @@ public class User {
     String password;
     String avatar;
     String role;
-    LocalDateTime datePost;
-    LocalDateTime dateModified;
+    Calendar datePost;
+    Calendar dateModified;
     int parent;
     String status;
     @OneToMany(
@@ -38,6 +36,6 @@ public class User {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    Set<Order> orders;
+    List<Order> orders ;
 
 }

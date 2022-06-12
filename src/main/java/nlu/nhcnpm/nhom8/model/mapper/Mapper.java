@@ -1,16 +1,14 @@
 package nlu.nhcnpm.nhom8.model.mapper;
 
-import nlu.nhcnpm.nhom8.entity.Movie;
-import nlu.nhcnpm.nhom8.entity.User;
-import nlu.nhcnpm.nhom8.model.dto.MovieDto;
-import nlu.nhcnpm.nhom8.model.dto.UserDto;
+import com.sun.source.tree.Tree;
+import nlu.nhcnpm.nhom8.entity.*;
+import nlu.nhcnpm.nhom8.model.dto.*;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 public class Mapper {
     public static UserDto toUserDto(User user) {
@@ -30,26 +28,68 @@ public class Mapper {
         tmp.setName(movie.getName());
         tmp.setDirector(movie.getDirector());
         tmp.setLanguage(movie.getLanguage());
-        tmp.setReleaseTime(formatDate(movie.getReleaseTime(),"dd/MM/yyyy"));
+        tmp.setReleaseTime(movie.getReleaseTime().getTime());
         tmp.setRunningTime(movie.getRunningTime());
         tmp.setType(movie.getType());
         tmp.setTrailer(movie.getTrailer());
+        tmp.setNumberOfShowingDate(movie.getNumberOfShowingDate());
         return tmp;
     }
-    public static String formatDate(LocalDateTime localDateTime, String pattern){
-        Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
-        Date date = Date.from(instant);
+    public static CityDto toCityDto(City city){
+        CityDto tmp = new CityDto();
+        tmp.setId(city.getId());
+        tmp.setNameCity(city.getNameCity());
+        if(city.getTheatres()!= null) {
+            List<TheatreDto> theatreDtos = new ArrayList<>();
+            for (Theatre t : city.getTheatres()) {
+                theatreDtos.add(Mapper.toTheatreDto(t));
+            }
+            tmp.setTheatres(theatreDtos);
+        }
+        return tmp;
+    }
+    public static TheatreDto toTheatreDto(Theatre theatre){
+        TheatreDto tmp = new TheatreDto();
+        tmp.setId(theatre.getId());
+        tmp.setNameTheatre(theatre.getNameTheatre());
+        tmp.setIdCity(theatre.getCity().getId());
+        tmp.setAddress(theatre.getAddress());
+        List<ShowingTimeDto> showingTimes = new ArrayList<>();
+        for(ShowingTime st : theatre.getShowingTimes()){
+            showingTimes.add(Mapper.toShowingTimeDto(st));
+        }
+        tmp.setShowingTimes(showingTimes);
+        return tmp;
+    }
+    public static ShowingTimeDto toShowingTimeDto(ShowingTime showingTime){
+        ShowingTimeDto tmp = new ShowingTimeDto();
+        tmp.setId(showingTime.getId());
+        tmp.setTime(showingTime.getTime());
+        tmp.setIdTheatre(showingTime.getTheatre().getId());
+        return tmp;
+    }
+    public static String formatDate(Calendar calendar, String pattern){
+        Date date = calendar.getTime();
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         String strDate = formatter.format(date);
         return strDate;
     }
-
-//    public static void main(String[] args) {
-//        Date dt = new Date();
-//        Calendar c = Calendar.getInstance();
-//        c.setTime(dt);
-//        c.add(Calendar.DATE, 7);
-//        dt = c.getTime();
-//        System.out.println(dt);
+//    public static Date convertCaleToDate(LocalDateTime localDateTime){
+//        Instant instant = localDateTime.toInstant();
+//        Date date = Date.from(instant);
+//        return date;
 //    }
+
+    public static void main(String[] args) {
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 0);
+        dt = c.getTime();
+        Date dt2 = new Date();
+        Calendar c2 = Calendar.getInstance();
+        c2.set(2022,06,10);
+        dt2 = c2.getTime();
+        System.out.println(dt.before(dt2));
+    }
 }

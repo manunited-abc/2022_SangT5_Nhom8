@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
@@ -25,14 +26,8 @@ public class ShowingTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    LocalTime time;
+    Calendar time;
     @ManyToOne(fetch = FetchType.LAZY)
     Theatre theatre;
-    @OneToMany(
-            mappedBy = "showingTime",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    Set<Order> orders;
 
 }

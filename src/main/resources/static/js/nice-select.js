@@ -28,19 +28,28 @@
             var t = e(this);
             t.next().hasClass("nice-select") || s(t)
         }), e(document).off(".nice_select"), e(document).on("click.nice_select", ".nice-select", function(t) {
-            var s = e(this);
+            var s = e(this)
             e(".nice-select").not(s).removeClass("open"), s.toggleClass("open"), s.hasClass("open") ? (s.find(".option"), s.find(".focus").removeClass("focus"), s.find(".selected").addClass("focus")) : s.focus()
         }), e(document).on("click.nice_select", function(t) {
             0 === e(t.target).closest(".nice-select").length && e(".nice-select").removeClass("open").find(".option")
         }), e(document).on("click.nice_select", ".nice-select .option:not(.disabled)", function(t) {
             var s = e(this),
                 n = s.closest(".nice-select");
+            //my handler
+            if(e(this).parent().parent().parent().attr('id') === 'select-city'){
+                var id = e(this).attr('data-value')
+                var num = id
+                requestData(id);
+            }
+
+            //
             n.find(".selected").removeClass("selected"), s.addClass("selected");
             var i = s.data("display") || s.text();
             n.find(".current").text(i), n.prev("select").val(s.data("value")).trigger("change")
         }), e(document).on("keydown.nice_select", ".nice-select", function(t) {
             var s = e(this),
                 n = e(s.find(".focus") || s.find(".list .option.selected"));
+
             if (32 == t.keyCode || 13 == t.keyCode) return s.hasClass("open") ? n.trigger("click") : s.trigger("click"), !1;
             if (40 == t.keyCode) {
                 if (s.hasClass("open")) {
@@ -60,6 +69,65 @@
             else if (9 == t.keyCode && s.hasClass("open")) return !1
         });
         var n = document.createElement("a").style;
+
         return n.cssText = "pointer-events:auto", "auto" !== n.pointerEvents && e("html").addClass("no-csspointerevents"), this
     }
 }(jQuery);
+requestData(1)
+
+$('.location-icon').tooltip()
+function isBeyondTime(showTime){
+    const now = new Date()
+    now.setFullYear(2022,11,11)
+    const time = new Date(showTime)
+    time.setFullYear(2022,11,11)
+    time.setMinutes(time.getMinutes()-60);
+    if(time<now)return true
+    else return false;
+}
+function formatDate(showTime){
+    return new Date(showTime).getHours()+":" +new Date(showTime).getMinutes()
+}
+
+
+function requestData(id){
+    $.ajax({
+        url: "../responseData/theatres/" + id,
+        type: 'GET',
+        dataType: "json",
+        success: function (response) {
+            var htmls = response.map(function (theatre) {
+                return `<li class="active">
+                        <div class="movie-name">
+                            <div class="icons">
+                                <i class="far fa-heart"></i>
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <a href="#0" class="name">${theatre.nameTheatre}</a>
+                            <div class="location-icon" title="${theatre.address}">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                        </div>
+                        <div class="movie-schedule">
+                        ${theatre.showingTimes.map(function (showTime) {
+                            if(!isBeyondTime(showTime.time)){
+                         return `            
+                             <div class="item"  >
+                                ${formatDate(showTime.time)}
+                            </div>
+                            `;}else{
+                         return `            
+                             <div class="item disable-btn"  style="background:  #9e9e9e;pointer-events: none;opacity: 0.6">
+                               ${formatDate(showTime.time)}
+                            </div>
+                            `;}
+                }).join('')}
+                           
+                        </div>
+                    </li>`
+            })
+            $('.seat-plan-wrapper.bg-five').html(htmls.join(''))
+
+        }
+    });
+}

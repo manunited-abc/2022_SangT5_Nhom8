@@ -1,6 +1,7 @@
 package nlu.nhcnpm.nhom8.controller;
 
 import nlu.nhcnpm.nhom8.entity.User;
+
 //import nlu.nhcnpm.nhom8.model.dto.ConstantSign;
 //import nlu.nhcnpm.nhom8.model.dto.GoogleItem;
 //import nlu.nhcnpm.nhom8.model.dto.GooglePojo;
@@ -8,6 +9,7 @@ import nlu.nhcnpm.nhom8.model.dto.MovieDto;
 import nlu.nhcnpm.nhom8.service.MovieService;
 import nlu.nhcnpm.nhom8.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -20,29 +22,33 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
+
 
 
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 
 @Controller
 public class SignInController {
-    @Autowired
-    UserService userService;
-
     @RequestMapping(value = "signIn")
     public String signInForm() {
         return "signIn";
     }
 
     @PostMapping(value = "checkSignIn")
+
     public String checkSignIN(@ModelAttribute User user, Model model, HttpServletRequest request) {
         boolean isEmailExist = userService.isEmailExist(user.getEmail());
         if (!isEmailExist) {
+
+    public String checkSignIN(@ModelAttribute User user, Model model) {
+        if (!user.getEmail().equals("e")) {
+
             model.addAttribute("emailValidation", "email is not exist");
             return "signIn :: email-validation";
+
         }
         String encryptPassword = encryptPassword(user.getPassword());
+
         User userSuccessLogin = userService.isPasswordCorrect(user.getEmail(), encryptPassword);
         if (userSuccessLogin == null) {
             model.addAttribute("passwordValidation", "password is wrong");
@@ -52,8 +58,17 @@ public class SignInController {
         HttpSession session = request.getSession(true);
         session.setAttribute("user",userSuccessLogin);
         return "index";
-    }
 
+        if (!encryptPassword.equals("p")) {
+
+        } else if (!user.getPassword().equals("p")) {
+            model.addAttribute("passwordValidation", "password is wrong");
+            return "signIn :: password-validation";
+        }
+        model.addAttribute("user", user);
+        return "signIn";
+
+    }
 
     private String encryptPassword(String password) {
         String encryptPassword = password;
