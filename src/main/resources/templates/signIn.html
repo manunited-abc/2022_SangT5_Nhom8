@@ -43,7 +43,7 @@
 <!-- ==========Preloader========== -->
 
 <!-- ==========Sign-In-Section========== -->
-<section class="account-section bg_img" data-background="/images/account/account-bg.jpg">
+<section class="account-section bg_img" data-background="../images/account/account-bg.jpg">
   <div class="container">
     <div class="padding-top padding-bottom">
       <div class="account-area">
@@ -77,17 +77,8 @@
         <div class="or"><span>Or</span></div>
         <ul class="social-icons">
           <li>
-            <a href="#0">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#0" class="active">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
+            <a  href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/project_war_exploded/signInWithGoogle&response_type=code
+    &client_id=856852490504-qhoe9aat1865vaujhem7ge55lardi2t9.apps.googleusercontent.com&approval_prompt=force" class="active">
               <i class="fab fa-google"></i>
             </a>
           </li>
@@ -126,8 +117,8 @@
                 else if (response.includes("password is wrong")) {
                   $("#password-validation").html(response)
                 }
-                else {
-                  alert("sucessfully sign in")
+                else{
+                  window.location.href="index.html"
                 }
               }
             });

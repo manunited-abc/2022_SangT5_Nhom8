@@ -1,5 +1,6 @@
 package nlu.nhcnpm.nhom8.service;
 
+import nlu.nhcnpm.nhom8.entity.User;
 import nlu.nhcnpm.nhom8.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,11 +20,19 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public boolean isPasswordCorrect(String email, String password) {
-        String checkPassword = userRepository.findByPassword(email, password);
-        if (checkPassword != null) {
-            return true;
+    public User isPasswordCorrect(String email, String password) {
+        User userSuccessLogin = userRepository.findByPassword(email, password);
+        if (userSuccessLogin != null) {
+            return userSuccessLogin;
         }
-        return false;
+        return null;
+    }
+
+
+    @Override
+    public boolean insertUser(String email, String password) {
+        System.out.println(email + " " +password);
+        userRepository.insertUser(email, password);
+        return true;
     }
 }
