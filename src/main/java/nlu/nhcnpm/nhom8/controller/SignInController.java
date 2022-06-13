@@ -36,45 +36,24 @@ public class SignInController {
 
     @PostMapping(value = "checkSignIn")
 
-    public String checkSignIN(@ModelAttribute User user, Model model, HttpServletRequest request) {
+    public String checkSignIn(@ModelAttribute User user, Model model, HttpServletRequest request) {
         boolean isEmailExist = userService.isEmailExist(user.getEmail());
         if (!isEmailExist) {
-
             model.addAttribute("emailValidation", "email is not exist");
             return "signIn :: email-validation";
 
         }
-        String encryptPassword = encryptPassword(user.getPassword());
-
+        String encryptPassword = userService.encryptPassword(user.getPassword());
         User userSuccessLogin = userService.isPasswordCorrect(user.getEmail(), encryptPassword);
         if (userSuccessLogin == null) {
             model.addAttribute("passwordValidation", "password is wrong");
             return "signIn :: password-validation";
         }
-
         HttpSession session = request.getSession(true);
         session.setAttribute("user",userSuccessLogin);
         return "index";
     }
 
-    private String encryptPassword(String password) {
-        String encryptPassword = password;
-        try {
-            MessageDigest m = MessageDigest.getInstance("MD5");
-            m.update(password.getBytes());
-            byte[] bytes = m.digest();
-            StringBuilder s = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-
-            encryptPassword = s.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return encryptPassword;
-    }
 
 //    @RequestMapping(value = "signInWithGoogle/{code}")
 //    private boolean signInWithGoogle(@PathVariable(value="code") String code) throws IOException {

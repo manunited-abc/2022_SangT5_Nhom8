@@ -110,11 +110,11 @@
               type : 'post',
               data : $(".account-form").serialize(),
               success : function(response) {
-                if (response.includes("email is not exist")) {
+                if (response.includes("email")) {
                   $("#email-validation").html(response)
                   $("#password-validation").text("")
                 }
-                else if (response.includes("password is wrong")) {
+                else if (response.includes("password")) {
                   $("#password-validation").html(response)
                 }
                 else {

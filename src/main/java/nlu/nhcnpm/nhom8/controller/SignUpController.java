@@ -8,10 +8,7 @@ import nlu.nhcnpm.nhom8.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -27,15 +24,18 @@ public class SignUpController {
         return "signUp";
     }
     @PostMapping(value = "checkSignUp")
-    public String checkSignUp(@ModelAttribute User user, Model model) {
+    public String checkSignUp(@ModelAttribute User user, Model model, @RequestParam String confirmPassword) {
         boolean isEmailExist = userService.isEmailExist(user.getEmail());
         if (isEmailExist) {
-            model.addAttribute("emailValidation", "email is not exist");
-            return "signIn :: email-validation";
+            model.addAttribute("emailValidation", "email is exist");
+            return "signUp :: email-validation";
         }
-//        String encryptPassword = encryptPassword(user.getPassword());
-        userService.insertUser(user.getEmail(), user.getPassword());
-        System.out.println(123);
+        if (!user.getPassword().equals(confirmPassword)) {
+            model.addAttribute("confirmPasswordValidation", "confirm password is not correct");
+            return "signUp :: confirmPassword-validation";
+        }
+        String encryptPassword = userService.encryptPassword(user.getPassword());
+        userService.insertUser(user.getEmail(), encryptPassword, "customer");
         return "index";
     }
 

@@ -100,21 +100,24 @@
           <div class="form-group">
             <label for="email1">Email<span>*</span></label>
             <input type="text" placeholder="Enter Your Email" id="email1" name="email" required>
+            <span class="validation" id="email-validation" th:fragment="email-validation" th:text="${emailValidation}"></span>
           </div>
           <div class="form-group">
             <label for="pass1">Password<span>*</span></label>
             <input type="password" placeholder="Password" id="pass1" name="password" required>
+            <span class="validation" id="password-validation" th:fragment="password-validation" th:text="${passwordValidation}"></span>
           </div>
           <div class="form-group">
             <label for="pass2">Confirm Password<span>*</span></label>
-            <input type="password" placeholder="Password" id="pass2" required>
+            <input type="password" placeholder="Password" id="pass2" name="confirmPassword" required>
+            <span class="validation" id="confirmPassword-validation" th:fragment="confirmPassword-validation" th:text="${confirmPasswordValidation}"></span>
           </div>
           <div class="form-group checkgroup">
-            <input type="checkbox" id="bal" required checked>
+            <input type="checkbox" id="bal" required>
             <label for="bal">I agree to the <a href="#0">Terms, Privacy Policy</a> and <a href="#0">Fees</a></label>
           </div>
           <div class="form-group text-center">
-            <input id="submit-logIn" type="submit" value="Sign Up">
+            <input id="submit-signUp" type="submit" value="Sign Up">
           </div>
         </form>
         <div class="option">
@@ -157,19 +160,64 @@
 <script type="text/javascript" th:src="@{/static/js/main.js}"></script>
 
 <script>
-  $("#submit-logIn").click((e)=>{
+  let isCorrectValidationPassword=false
+  let isCorrectValidationConfirmPassword=false
+  $("#pass1").keyup(function() {
+    let password = $(this).val()
+    if(password.length < 8) {
+      $("#password-validation").text("password length must be > 8")
+      isCorrectValidationPassword = false
+    }
+    else if (password.length > 16) {
+      $("#password-validation").text("password length must be < 8")
+      isCorrectValidationPassword = false
+    }
+    else if (password == password.toLowerCase()) {
+      $("#password-validation").text("password must be have one uppercase letter")
+      isCorrectValidationPassword = false
+    }
+    else {
+      $("#password-validation").text("")
+      isCorrectValidationPassword = true
+      checkConfirmPassword()
+    }
+  })
+  $("#pass2").keyup(function() {
+    checkConfirmPassword()
+  })
+  function checkConfirmPassword() {
+    let confirmPassword = $("#pass2").val()
+    if(confirmPassword != $("#pass1").val() && confirmPassword != "" && confirmPassword != null) {
+      $("#confirmPassword-validation").text("confirm password not correct")
+      isCorrectValidationConfirmPassword=false
+    }
+    else {
+      $("#confirmPassword-validation").text("")
+      isCorrectValidationConfirmPassword=true
+    }
+  }
+
+  $("#submit-signUp").click((e)=>{
             e.preventDefault()
+            if (!isCorrectValidationPassword && !isCorrectValidationConfirmPassword){
+              return
+            }
+            if (!$("#bal").prop('checked')) {
+              alert("You must agree term if you want sign up")
+              return
+            }
             $.ajax({
               url : $(".account-form").attr('action'),
               type : 'post',
               data : $(".account-form").serialize(),
               success : function(response) {
-                if (response.includes("email is not exist")) {
+                if (response.includes("email")) {
                   $("#email-validation").html(response)
                   $("#password-validation").text("")
+                  $("#confirmPassword-validation").text("")
                 }
-                else if (response.includes("password is wrong")) {
-                  $("#password-validation").html(response)
+                else if (response.includes("confirm password")) {
+                  $("#confirmPassword-validation").html(response)
                 }
                 else{
                   window.location.href="index.html"
