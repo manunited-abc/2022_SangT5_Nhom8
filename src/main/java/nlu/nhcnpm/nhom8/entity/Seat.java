@@ -23,7 +23,10 @@ public class Seat {
     int id;
     String codeSeat;
     String typeSeat;
+    double price;
+    String status;
     @OneToMany(mappedBy = "seat")
     Set<SeatDetail> seatDetails = new HashSet<>();
-            ;
+    @ManyToOne(fetch = FetchType.LAZY)
+    Theatre theatre;
 }

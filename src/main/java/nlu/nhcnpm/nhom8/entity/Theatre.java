@@ -31,10 +31,16 @@ public class Theatre {
     )
     List<ShowingTime> showingTimes  ;
     @OneToMany(
-            mappedBy = "movie",
+            mappedBy = "theatre",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     List<Order> orders;
+    @OneToMany(
+            mappedBy = "theatre",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<Seat> Seat;
 
 }
