@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/all.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/flaticon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/magnific-popup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/odometer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nice-select.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mycss.scss}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
+    <style th:inline="text">
+        .details-banner{
+            background-image: url([[@{'../images/movie/' + ${movie.avatar}}]])!important;
+            background-position: 10% 11%;
+
+        }
+        .hide-img{
+            display: none;
+        }
+        .show-img{
+            display: block!important;
+        }
+    </style>
+</head>
+<body>
+<!-- ==========Preloader========== -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ==========Overlay========== -->
+<div class="overlay"></div>
+<a href="#0" class="scrollToTop">
+    <i class="fas fa-angle-up"></i>
+</a>
+<!-- ==========Header-Section========== -->
+<header th:replace="header :: header"></header>
+
+<!-- ==========Banner-Section========== -->
+<section class="details-banner hero-area bg_img seat-plan-banner" data-background="../images/banner/banner04.jpg">
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-content style-two">
+                <h3 class="title" th:text="${movie.name}"></h3>
+                <div class="tags">
+                    <a href="#0" th:text="${movie.director}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Page-Title========== -->
+<section class="page-title bg-one">
+    <div class="container">
+        <div class="page-title-area">
+            <div class="item md-order-1">
+                <a href="movie-ticket-plan.html" class="custom-button back-button">
+                    <i class="flaticon-double-right-arrows-angles"></i>back
+                </a>
+            </div>
+            <div class="item date-item">
+                <span class="date"></span>
+                <span class="time"></span>
+            </div>
+            <div class="item">
+                <h5 class="title">05:00</h5>
+                <p>Mins Left</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Page-Title========== -->
+
+<!-- ==========Movie-Section========== -->
+<div class="seat-plan-section padding-bottom padding-top">
+    <div class="container">
+        <div class="screen-area">
+            <h4 class="screen">screen</h4>
+            <div class="screen-thumb">
+                <img src="../images/movie/screen-thumb.png" alt="movie">
+            </div>
+            <h5 class="subtitle">Single Seat</h5>
+            <div class="screen-wrapper">
+                <ul class="seat-area" >
+                    <li class="seat-line" th:each="seat : ${singleMap}">
+                        <span th:text="${seat.key}"></span>
+                        <ul class="seat--area" >
+                            <li class="front-seat">
+                                <ul >
+                                    <li class="single-seat" th:each="seatCode : ${seat.value} " onclick="booked(this)" >
+                                            <img src="../images/movie/seat01.png" alt="seat" th:if="${seatCode.status=='booked'}" class="">
+                                            <img src="../images/movie/seat01-free.png" alt="seat" th:unless="${seatCode.status=='booked'}" >
+                                            <span class="sit-num" th:text="${seatCode.codeSeat}"></span>
+
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <span th:text="${seat.key}"></span>
+                    </li>
+
+                </ul>
+            </div>
+            <h5 class="subtitle">Double Seat</h5>
+            <div class="screen-wrapper">
+                <ul class="seat-area couple">
+                    <li class="seat-line" th:each="seat : ${doubleMap}">
+                        <span th:text="${seat.key}"></span>
+                        <ul class="seat--area">
+                            <li class="front-seat">
+                                <ul>
+                                    <li class="single-seat" th:each="seatCode : ${seat.value} ">
+                                        <img src="../images/movie/seat02.png" alt="seat" th:if="${seatCode.status=='booked'}">
+                                        <img src="../images/movie/seat02-free.png" alt="seat" th:unless="${seatCode.status=='booked'}">
+                                        <span class="sit-num" th:text="${seatCode.codeSeat}"></span>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                        <span th:text="${seat.key}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="proceed-book bg_img" data-background="../images/movie/movie-bg-proceed.jpg">
+            <div class="proceed-to-book">
+                <div class="book-item">
+                    <span>You have Choosed Seat</span>
+                    <h3 class="title"></h3>
+                </div>
+                <div class="book-item">
+                    <span>total price</span>
+                    <h3 class="title">$150</h3>
+                </div>
+                <div class="book-item">
+                    <a href="movie-checkout.html" class="custom-button">proceed</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ==========Movie-Section========== -->
+<footer th:replace="footer :: footer"></footer>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/modernizr-3.6.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/wow.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/countdown.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/viewport.jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/nice-select.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script>
+    const order = localStorage.getItem('order');
+    const orderParse = JSON.parse(order);
+    $('.item.date-item .date').html(orderParse.showingDate);
+    $('.item.date-item .time').html(formatDate(orderParse.showingTime));
+
+    function booked(e){
+
+        if(e.childNodes[1].src==="http://localhost:8080/images/movie/seat01-free.png"){
+            e.childNodes[1].src='../images/movie/seat01-booked.png';
+            const choosed = document.querySelector('.proceed-to-book').childNodes[1].childNodes[3];
+            choosed.innerHTML = choosed.innerHTML+e.childNodes[3].innerHTML+",";
+        }else{
+            e.childNodes[1].src='../images/movie/seat01-free.png';
+        }
+
+
+    }
+</script>
+</body>
+</html>
