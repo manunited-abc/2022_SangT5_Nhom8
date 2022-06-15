@@ -1,4 +1,4 @@
-package nlu.nhcnpm.nhom8.service.api_goggle;
+package nlu.nhcnpm.nhom8.service.google_api;
 
 public class Constant {
     public static String GOOGLE_CLIENT_ID = "67696821585-3mdu5cv8ajjse2p1lt848se4m9num93o.apps.googleusercontent.com";
