@@ -43,7 +43,8 @@
 <!-- ==========Preloader========== -->
 
 <!-- ==========Sign-In-Section========== -->
-<section class="account-section bg_img" data-background="../images/account/account-bg.jpg">
+<img>
+<section class="account-section bg_img" th:style="'background: url(./images/account/account-bg.jpg)'">
   <div class="container">
     <div class="padding-top padding-bottom">
       <div class="account-area">
@@ -72,7 +73,7 @@
           </div>
         </form>
         <div class="option">
-          Don't have an account? <a href="sign-up.html">sign up now</a>
+          Don't have an account? <a href="signUp">sign up now</a>
         </div>
         <div class="or"><span>Or</span></div>
         <ul class="social-icons">
@@ -106,6 +107,14 @@
 <script>
   $("#submit-logIn").click((e)=>{
             e.preventDefault()
+            if ($("#email2").val()=="") {
+              $("#email-validation").text("email must be not empty")
+              return
+            }
+            else if ($("#pass3").val()=="") {
+              $("#password-validation").text("password must be not empty")
+              return
+            }
             $.ajax({
               url : $(".account-form").attr('action'),
               type : 'post',

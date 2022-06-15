@@ -1,7 +1,8 @@
-package nlu.nhcnpm.nhom8.service.api_goggle;
+package nlu.nhcnpm.nhom8.service.google_api;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import nlu.nhcnpm.nhom8.model.dto.google_api.GooglePojo;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -25,7 +26,6 @@ class GoogleItem {
         String link = Constant.GOOGLE_LINK_GET_USER_INFO + accessToken;
         String response = Request.Get(link).execute().returnContent().asString();
         GooglePojo googlePojo = new Gson().fromJson(response, GooglePojo.class);
-        System.out.println(googlePojo);
         return googlePojo;
     }
 }
