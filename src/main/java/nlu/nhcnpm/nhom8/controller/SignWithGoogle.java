@@ -1,10 +1,10 @@
 package nlu.nhcnpm.nhom8.controller;
 
 import nlu.nhcnpm.nhom8.entity.User;
-import nlu.nhcnpm.nhom8.model.dto.GoogleItem;
-import nlu.nhcnpm.nhom8.model.dto.GooglePojo;
+import nlu.nhcnpm.nhom8.model.dto.google_api.GooglePojo;
 import nlu.nhcnpm.nhom8.service.UserService;
 import nlu.nhcnpm.nhom8.service.google_api.Constant;
+import nlu.nhcnpm.nhom8.service.google_api.GoogleItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

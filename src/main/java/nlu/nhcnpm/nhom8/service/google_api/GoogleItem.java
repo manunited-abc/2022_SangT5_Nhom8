@@ -9,7 +9,7 @@ import org.apache.http.client.fluent.Request;
 
 import java.io.IOException;
 
-class GoogleItem {
+public class GoogleItem {
 
     public static String getToken(final String code, String token, String id, String client, String uri, String type) throws ClientProtocolException, IOException {
         String response = Request.Post(token)
