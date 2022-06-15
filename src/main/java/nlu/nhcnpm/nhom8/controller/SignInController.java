@@ -53,25 +53,4 @@ public class SignInController {
         session.setAttribute("user",userSuccessLogin);
         return "index";
     }
-
-
-//    @RequestMapping(value = "signInWithGoogle/{code}")
-//    private boolean signInWithGoogle(@PathVariable(value="code") String code) throws IOException {
-//        System.out.println(code);
-//        if (code != null) {
-//            String accessToken = GoogleItem.getToken(code, ConstantSign.GOOGLE_LINK_GET_TOKEN, ConstantSign.GOOGLE_CLIENT_ID, ConstantSign.GOOGLE_CLIENT_SECRET, ConstantSign.GOOGLE_REDIRECT_URI, ConstantSign.GOOGLE_GRANT_TYPE);
-//            GooglePojo googlePojo = GoogleItem.getUserInfo(accessToken);
-//            request.setAttribute("id", googlePojo.getId());
-//            request.setAttribute("name", googlePojo.getName());
-//            request.setAttribute("email", googlePojo.getEmail());
-//            System.out.println(googlePojo.getId() + " " + googlePojo.getName() + " " + googlePojo.getEmail());
-//            if (DaoAuthentication.getInstance().checkPassword(googlePojo.getId()) == false) {
-//                request.getSession(true).setAttribute("user", true);
-//                request.getRequestDispatcher("/Route?page=listProduct").forward(request, response);
-//            }
-//            request.getRequestDispatcher("/views/admin/authentication/signIn/signIn.jsp").forward(request, response);
-//            return false;
-//        }
-//        return false;
-//    }
 }
