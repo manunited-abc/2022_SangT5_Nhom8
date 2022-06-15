@@ -73,8 +73,6 @@
         return n.cssText = "pointer-events:auto", "auto" !== n.pointerEvents && e("html").addClass("no-csspointerevents"), this
     }
 }(jQuery);
-requestData(1)
-
 $('.location-icon').tooltip()
 function isBeyondTime(showTime){
     const now = new Date()
@@ -88,7 +86,6 @@ function isBeyondTime(showTime){
 function formatDate(showTime){
     return new Date(showTime).getHours()+":" +new Date(showTime).getMinutes()
 }
-
 
 function requestData(id){
     $.ajax({
@@ -112,7 +109,7 @@ function requestData(id){
                         ${theatre.showingTimes.map(function (showTime) {
                             if(!isBeyondTime(showTime.time)){
                          return `            
-                             <div class="item"  >
+                             <div class="item" onclick="showSeatPlan('${theatre.id} ','${showTime.time}')">
                                 ${formatDate(showTime.time)}
                             </div>
                             `;}else{

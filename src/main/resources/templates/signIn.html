@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/odometer.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.min.css}" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.default.min.css}" />
-  <link rel="stylesheet" type="text/css" th:href="@{/css/nice-select.css}" />
+
   <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
   <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
 
@@ -102,7 +102,7 @@
 <script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/viewport.jquery.js}"></script>
 <script type="text/javascript" th:src="@{/js/nice-select.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
 
 <script>
   $("#submit-logIn").click((e)=>{
@@ -128,7 +128,8 @@
                   $("#password-validation").html(response)
                 }
                 else {
-                   window.location.href = "index.html"
+                  const id = localStorage.getItem("movieID");
+                   window.location.href = "movie-seat-plan/"+id;
                 }
               }
             });
