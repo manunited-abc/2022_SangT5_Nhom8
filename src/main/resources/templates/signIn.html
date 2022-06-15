@@ -128,8 +128,9 @@
                   $("#password-validation").html(response)
                 }
                 else {
-                  const id = localStorage.getItem("movieID");
-                   window.location.href = "movie-seat-plan/"+id;
+                  const order = localStorage.getItem("order")
+                  const orderParse = JSON.parse(order);
+                   window.location.href = "movie-seat-plan/"+orderParse.movieId+"/"+orderParse.theatreId+"/"+orderParse.timeShowing+"/"+orderParse.showingDate;
                 }
               }
             });

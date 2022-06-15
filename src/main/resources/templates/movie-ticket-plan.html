@@ -66,7 +66,7 @@
             <img src="../images/movie/seat-plan.png" alt="movie">
         </div>
         <input type="hidden" th:value="${movie.id}" id="movie-id">
-        <a th:href=@{'../movie-seat-plan/'+${movie.id}} class="custom-button seatPlanButton">Seat Plans<i class="fas fa-angle-right"></i></a>
+        <a style="cursor: pointer" class="custom-button seatPlanButton">Seat Plans<i class="fas fa-angle-right"></i></a>
     </div>
 </section>
 <!-- ==========Window-Warning-Section========== -->
@@ -108,7 +108,7 @@
                 <span class="type">date</span>
                 <select class="select-bar" >
                     <div th:each="showingDate : ${movie.showTimes}" >
-                    <option th:value="${#dates.format(showingDate,'dd-MM-yyyy')}" th:text="${#dates.format(showingDate,'dd-MM-yyyy')}" ></option>
+                    <option th:value="${#dates.format(showingDate,'yyyy-MM-dd')}" th:text="${#dates.format(showingDate,'dd-MM-yyyy')}" ></option>
                     </div>
                 </select>
             </div>
@@ -158,14 +158,22 @@
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 <script>
     requestData(1);
+
     function showSeatPlan(idTheatre,showingTime){
-        const date = $('#select-date .current').html()
-        const order ={"idTheatre":idTheatre,"showingTime":showingTime,"showingDate":date}
+        const dateShowing = $('#select-date .current').html()
+        const idTheatres = Number(idTheatre)
+        const idMovie = $('#movie-id').val()
+        const timeFormat = new Date(showingTime).getHours()+":" +new Date(showingTime).getMinutes();
+        const order ={movieId:idMovie,theatreId:idTheatres,timeShowing:timeFormat,showingDate:dateShowing}
         localStorage.setItem("order", JSON.stringify(order));
-        const movieId = $('#movie-id').val()
-        localStorage.setItem("movieID",movieId)
+        // localStorage.setItem("movieID",movieId)
         $('.window-warning').removeClass("inActive")
+        $('.custom-button.seatPlanButton').click(function (){
+            window.location.href="../movie-seat-plan/"+idMovie+"/"+idTheatres+"/"+timeFormat+"/"+dateShowing
+        })
+
     }
+
 </script>
 </body>
 </html>

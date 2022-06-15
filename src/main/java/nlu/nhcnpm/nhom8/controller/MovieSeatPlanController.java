@@ -5,8 +5,10 @@ import nlu.nhcnpm.nhom8.entity.Seat;
 import nlu.nhcnpm.nhom8.entity.User;
 import nlu.nhcnpm.nhom8.model.dto.MovieDto;
 import nlu.nhcnpm.nhom8.model.dto.SeatDto;
+import nlu.nhcnpm.nhom8.model.dto.TheatreDto;
 import nlu.nhcnpm.nhom8.service.MovieService;
 import nlu.nhcnpm.nhom8.service.SeatService;
+import nlu.nhcnpm.nhom8.service.TheatreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class MovieSeatPlanController {
@@ -25,11 +24,21 @@ public class MovieSeatPlanController {
     MovieService movieService;
     @Autowired
     SeatService seatService;
-    @GetMapping("movie-seat-plan/{id}")
-    public String movieSeatPlan(Model model, @PathVariable int id, HttpServletRequest request) {
+    @Autowired
+    TheatreService theatreService;
+    @GetMapping("movie-seat-plan/{idMovie}/{idTheatre}/{time}/{date}")
+    public String movieSeatPlan(Model model, @PathVariable String idMovie,
+                                @PathVariable String idTheatre,@PathVariable String time,
+                                @PathVariable String date, HttpServletRequest request ) {
 
-        MovieDto movieDto = movieService.getMovieById(id);
+        MovieDto movieDto = movieService.getMovieById(Integer.parseInt(idMovie));
         model.addAttribute("movie", movieDto);
+
+        TheatreDto theatreDto = theatreService.getTheatreById(Integer.parseInt(idTheatre));
+        model.addAttribute("theatre",theatreDto);
+
+        model.addAttribute("time",time);
+        model.addAttribute("date",date);
 
         List<SeatDto> seatDtos = seatService.getAllSeat();
 

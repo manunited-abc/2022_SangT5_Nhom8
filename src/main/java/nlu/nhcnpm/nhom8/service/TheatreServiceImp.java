@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class TheatreServiceImp implements TheatreService{
@@ -23,5 +24,10 @@ public class TheatreServiceImp implements TheatreService{
             theatreDtos.add(Mapper.toTheatreDto(t));
         }
         return theatreDtos;
+    }
+
+    @Override
+    public TheatreDto getTheatreById(int id) {
+        return Mapper.toTheatreDto(theatreRepository.findAllById(id));
     }
 }

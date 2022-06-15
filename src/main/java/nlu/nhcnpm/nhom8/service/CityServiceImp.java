@@ -1,15 +1,10 @@
 package nlu.nhcnpm.nhom8.service;
 
-import nlu.nhcnpm.nhom8.entity.City;
 import nlu.nhcnpm.nhom8.model.dto.CityDto;
-import nlu.nhcnpm.nhom8.model.mapper.Mapper;
 import nlu.nhcnpm.nhom8.repository.CityRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 

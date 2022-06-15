@@ -22,4 +22,9 @@ public class SeatServiceImp implements  SeatService{
         }
         return seatDtos;
     }
+
+    @Override
+    public SeatDto getSeatById(int id) {
+        return Mapper.toSeatDto(seatRepository.findSeatById(id));
+    }
 }

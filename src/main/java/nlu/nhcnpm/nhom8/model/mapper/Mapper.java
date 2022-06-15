@@ -77,6 +77,15 @@ public class Mapper {
         tmp.setPrice(seat.getPrice());
         return tmp;
     }
+    public static ComboFoodDto toComboFood(ComboFood comboFood){
+        ComboFoodDto tmp = new ComboFoodDto();
+        tmp.setId(comboFood.getId());
+        tmp.setNameCombo(comboFood.getNameCombo());
+        tmp.setDescription(comboFood.getDescription());
+        tmp.setPrice(comboFood.getPrice());
+        tmp.setAvatar(comboFood.getAvatar());
+        return tmp;
+    }
     public static String formatDate(Calendar calendar, String pattern){
         Date date = calendar.getTime();
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);

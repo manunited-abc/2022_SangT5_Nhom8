@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/all.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/flaticon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/magnific-popup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/odometer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nice-select.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mycss.scss}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
+    <style th:inline="text">
+        .details-banner{
+            background-image: url([[@{'/images/movie/' + ${movie.avatar}}]])!important;
+            background-position: 10% 11%;
+
+        }
+        .hide-img{
+            display: none;
+        }
+        .show-img{
+            display: block!important;
+        }
+    </style>
+</head>
+<body>
+<!-- ==========Preloader========== -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ==========Overlay========== -->
+<div class="overlay"></div>
+<a href="#0" class="scrollToTop">
+    <i class="fas fa-angle-up"></i>
+</a>
+<!-- ==========Header-Section========== -->
+<header th:replace="header :: header"></header>
+<!-- ==========Window-Warning-Section========== -->
+<section class="window-warning maximum inActive">
+    <div class="lay"></div>
+    <div class="warning-item">
+        <h6 class="subtitle">Waring </h6>
+        <h4 class="title">You can choose maximum 5 seats</h4>
+        <a  style="cursor: pointer" class="custom-button seatPlanButton maximum">OK</a>
+    </div>
+</section>
+<!-- ==========Window-Warning-Section========== -->
+<section class="window-warning choose inActive">
+    <div class="lay"></div>
+    <div class="warning-item">
+        <h6 class="subtitle">Waring </h6>
+        <h4 class="title">Please choose your seats first</h4>
+        <a  style="cursor: pointer" class="custom-button seatPlanButton choose">OK</a>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+<section class="details-banner hero-area bg_img seat-plan-banner" data-background="/images/banner/banner04.jpg">
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-content style-two">
+                <h3 class="title" th:text="${movie.name}"></h3>
+                <div class="tags">
+                    <a href="#0" th:text="${movie.director}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Banner-Section========== -->
+
+<!-- ==========Page-Title========== -->
+<section class="page-title bg-one">
+    <div class="container">
+        <div class="page-title-area">
+            <div class="item md-order-1">
+                <a style="cursor: pointer" onclick="history.back()" class="custom-button back-button">
+                    <i class="fa fa-angle-double-right"></i>back
+                </a>
+            </div>
+            <div class="item date-item">
+                <span class="date custom-button back-button" th:text="${date}"></span>
+                <span class="time custom-button back-button" th:text="${time}"></span>
+            </div>
+            <div class="item">
+                <h5 class="title">05:00</h5>
+                <p>Mins Left</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==========Page-Title========== -->
+
+<!-- ==========Movie-Section========== -->
+<div class="movie-facility padding-bottom padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="grid--area">
+                    <h2 class="title" style="margin-bottom: 24px;text-align: center">Choose Combo</h2>
+                    <div class="grid-area">
+                        <div class="grid-item combos popcorn" th:each="comboFood : ${comboFoods}">
+                            <div class="grid-inner">
+                                <div class="grid-thumb">
+                                    <img th:src="@{'/images/movie/' + ${comboFood.avatar}}" alt="movie/popcorn">
+                                    <div class="offer-tag" th:text="'$'+${comboFood.price}">
+
+                                    </div>
+                                    <div class="offer-remainder">
+                                        <h6 class="o-title mt-0">24%</h6>
+                                        <span>off</span>
+                                    </div>
+                                </div>
+                                <div class="grid-content">
+                                    <h5 class="subtitle name-combo">
+                                        <a href="#0" th:text="${comboFood.nameCombo}">
+                                        </a>
+                                    </h5>
+                                    <h5 class="subtitle" style="margin-top: 24px;font-size: 20px">
+                                        <a href="#0" th:text="${comboFood.description}">
+                                        </a>
+                                    </h5>
+                                    <form class="cart-button" style="justify-content: center">
+                                        <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box" type="text" value="0" oninput="chooseQuantity(this)">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="booking-summery bg-one">
+                    <h4 class="title">booking summery</h4>
+                    <ul>
+                        <li>
+                            <h6 class="subtitle" th:text="${movie.name}"></h6>
+                            <span class="info" th:text="${movie.director}"></span>
+                        </li>
+                        <li>
+                            <h6 class="subtitle" ><span th:text="${theatre.nameTheatre}"></span></h6>
+                            <div class="info" ><span th:text="${date}+','+${time}"></span> </div>
+                        </li>
+                        <li>
+                            <h6 class="subtitle" ><span>Code Seat</span></h6>
+                            <div class="info" ><span th:text="${codeSeats}"></span> </div>
+                        </li>
+                        <li>
+                            <h6 class="subtitle mb-0"><span>Tickets  Price</span><span th:text="'$'+${ticketPrice}"></span></h6>
+                        </li>
+                    </ul>
+                    <ul class="side-shape">
+                        <li>
+                            <h6 class="subtitle" ><span>combos</span><span id="price-combo">$57</span></h6>
+                            <span class="info"><span>2 Nachos Combo</span></span>
+                        </li>
+                        <li>
+                            <h6 class="subtitle"><span>food & bevarage</span></h6>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <span class="info"><span>price</span><span>$207</span></span>
+                            <span class="info"><span>vat</span><span>$15</span></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="proceed-area  text-center">
+                    <h6 class="subtitle"><span>Amount Payable</span><span>$222</span></h6>
+                    <a href="#0" class="custom-button back-button">Next</a>
+                </div>
+                <div class="note">
+                    <h5 class="title">Note :</h5>
+                    <p>Please give us 15 minutes for F& B preparation  once you're at the cinema</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==========Movie-Section========== -->
+<footer th:replace="footer :: footer"></footer>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/modernizr-3.6.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/wow.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/countdown.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/viewport.jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/nice-select.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script>
+    function chooseQuantity(e){
+        console.log(e.value)
+    }
+</script>
+<script >
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -9,4 +9,5 @@ import java.util.List;
 @Service
 public interface SeatService {
     public List<SeatDto> getAllSeat();
+    public SeatDto getSeatById(int id);
 }

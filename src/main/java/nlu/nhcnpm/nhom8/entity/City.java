@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,5 +29,6 @@ public class City {
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    List<Theatre> theatres ;
+    List<Theatre> theatres = new ArrayList<>();
+
 }

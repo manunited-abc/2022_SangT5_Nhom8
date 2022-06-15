@@ -14,5 +14,6 @@ import java.util.Set;
 public class CityDto {
     int id;
     String nameCity;
+
     List<TheatreDto> theatres;
 }

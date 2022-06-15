@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class Theatre {
     String nameTheatre;
     String address;
     @ManyToOne(fetch = FetchType.LAZY)
-    City city = new City();
+    City city;
     @OneToMany(
             mappedBy = "theatre",
             cascade = CascadeType.ALL,
@@ -36,6 +37,7 @@ public class Theatre {
             orphanRemoval = true
     )
     List<Order> orders;
+
     @OneToMany(
             mappedBy = "theatre",
             cascade = CascadeType.ALL,

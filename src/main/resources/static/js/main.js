@@ -368,6 +368,8 @@
         CartPlusMinus.append('<div class="inc qtybutton">+</div>');
         $(".qtybutton").on("click", function() {
             var $button = $(this);
+            var nameCombo = $button.parent().parent().parent().find('.subtitle.name-combo a').html()
+            var priceCombo = $('#price-combo')
             var oldValue = $button.parent().find("input").val();
             if ($button.text() === "+") {
                 var newVal = parseFloat(oldValue) + 1;

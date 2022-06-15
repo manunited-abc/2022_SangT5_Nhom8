@@ -1,6 +1,8 @@
 /*  jQuery Nice Select - v1.0
     https://github.com/hernansartorio/jquery-nice-select
     Made by HernÃ¡n Sartorio  */
+let dates= new Date();
+let idCiyDefault = 1;
 ! function(e) {
     e.fn.niceSelect = function(t) {
         function s(t) {
@@ -40,6 +42,15 @@
                 var id = e(this).attr('data-value')
                 var num = id
                 requestData(id);
+                idCiyDefault=id;
+            }
+            if(e(this).parent().parent().parent().attr('id') === 'select-date'){
+                var date = e(this).attr('data-value')
+
+                const d = new Date(date )
+                dates.setFullYear(d.getFullYear(),d.getMonth(),d.getDate())
+                requestData(idCiyDefault);
+
             }
 
             //
@@ -76,13 +87,13 @@
 $('.location-icon').tooltip()
 function isBeyondTime(showTime){
     const now = new Date()
-    now.setFullYear(2022,11,11)
     const time = new Date(showTime)
-    time.setFullYear(2022,11,11)
+    time.setFullYear(dates.getFullYear(),dates.getMonth(), dates.getDate())
     time.setMinutes(time.getMinutes()-60);
     if(time<now)return true
     else return false;
 }
+
 function formatDate(showTime){
     return new Date(showTime).getHours()+":" +new Date(showTime).getMinutes()
 }

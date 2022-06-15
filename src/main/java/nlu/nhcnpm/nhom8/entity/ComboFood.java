@@ -23,6 +23,7 @@ public class ComboFood {
     int id;
     String nameCombo;
     String description;
+    String avatar;
     double price;
     @OneToMany(mappedBy = "comboFood")
     Set<ComboFoodDetail> comboFoodDetails = new HashSet<>();

@@ -10,4 +10,5 @@ import java.util.List;
 @Service
 public interface TheatreService{
     public List<TheatreDto> getTheatreByCityId(int id);
+    public TheatreDto getTheatreById(int id);
 }

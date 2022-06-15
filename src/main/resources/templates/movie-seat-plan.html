@@ -22,7 +22,7 @@
     <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
     <style th:inline="text">
         .details-banner{
-            background-image: url([[@{'../images/movie/' + ${movie.avatar}}]])!important;
+            background-image: url([[@{'/images/movie/' + ${movie.avatar}}]])!important;
             background-position: 10% 11%;
 
         }
@@ -51,15 +51,33 @@
 </a>
 <!-- ==========Header-Section========== -->
 <header th:replace="header :: header"></header>
-
+<!-- ==========Window-Warning-Section========== -->
+<section class="window-warning maximum inActive">
+    <div class="lay"></div>
+    <div class="warning-item">
+        <h6 class="subtitle">Waring </h6>
+        <h4 class="title">You can choose maximum 5 seats</h4>
+        <a  style="cursor: pointer" class="custom-button seatPlanButton maximum">OK</a>
+    </div>
+</section>
+<!-- ==========Window-Warning-Section========== -->
+<section class="window-warning choose inActive">
+    <div class="lay"></div>
+    <div class="warning-item">
+        <h6 class="subtitle">Waring </h6>
+        <h4 class="title">Please choose your seats first</h4>
+        <a  style="cursor: pointer" class="custom-button seatPlanButton choose">OK</a>
+    </div>
+</section>
 <!-- ==========Banner-Section========== -->
-<section class="details-banner hero-area bg_img seat-plan-banner" data-background="../images/banner/banner04.jpg">
+<section class="details-banner hero-area bg_img seat-plan-banner" data-background="/images/banner/banner04.jpg">
     <div class="container">
         <div class="details-banner-wrapper">
             <div class="details-banner-content style-two">
+                <input id="id-movie" type="hidden" th:value="${movie.id}">
                 <h3 class="title" th:text="${movie.name}"></h3>
                 <div class="tags">
-                    <a href="#0" th:text="${movie.director}"></a>
+                    <a href="#0" th:text="${theatre.nameTheatre}"></a>
                 </div>
             </div>
         </div>
@@ -72,13 +90,13 @@
     <div class="container">
         <div class="page-title-area">
             <div class="item md-order-1">
-                <a href="movie-ticket-plan.html" class="custom-button back-button">
-                    <i class="flaticon-double-right-arrows-angles"></i>back
+                <a th:href=@{'/movie-seat-plan/'+${movie.id}} class="custom-button back-button">
+                    <i class="fa fa-angle-double-right"></i>back
                 </a>
             </div>
             <div class="item date-item">
-                <span class="date"></span>
-                <span class="time"></span>
+                <span class="date custom-button back-button" th:text="${date}"></span>
+                <span class="time custom-button back-button"  th:text="${time}"></span>
             </div>
             <div class="item">
                 <h5 class="title">05:00</h5>
@@ -95,7 +113,7 @@
         <div class="screen-area">
             <h4 class="screen">screen</h4>
             <div class="screen-thumb">
-                <img src="../images/movie/screen-thumb.png" alt="movie">
+                <img src="/images/movie/screen-thumb.png" alt="movie">
             </div>
             <h5 class="subtitle">Single Seat</h5>
             <div class="screen-wrapper">
@@ -105,10 +123,12 @@
                         <ul class="seat--area" >
                             <li class="front-seat">
                                 <ul >
-                                    <li class="single-seat" th:each="seatCode : ${seat.value} " onclick="booked(this)" >
-                                            <img src="../images/movie/seat01.png" alt="seat" th:if="${seatCode.status=='booked'}" class="">
-                                            <img src="../images/movie/seat01-free.png" alt="seat" th:unless="${seatCode.status=='booked'}" >
+                                    <li class="single-seat" th:each="seatCode : ${seat.value} " >
+                                            <img src="/images/movie/seat01.png" alt="seat" th:if="${seatCode.status=='booked'}" class=""  >
+                                            <img src="/images/movie/seat01-free.png" alt="seat" th:unless="${seatCode.status=='booked'}" onclick="booked1(this)" >
                                             <span class="sit-num" th:text="${seatCode.codeSeat}"></span>
+                                        <input type="hidden" th:value="${seatCode.id}">
+                                        <input type="hidden" th:value="${seatCode.price}">
 
                                     </li>
                                 </ul>
@@ -128,9 +148,11 @@
                             <li class="front-seat">
                                 <ul>
                                     <li class="single-seat" th:each="seatCode : ${seat.value} ">
-                                        <img src="../images/movie/seat02.png" alt="seat" th:if="${seatCode.status=='booked'}">
-                                        <img src="../images/movie/seat02-free.png" alt="seat" th:unless="${seatCode.status=='booked'}">
+                                        <img src="/images/movie/seat02.png" alt="seat" th:if="${seatCode.status=='booked'}">
+                                        <img src="/images/movie/seat02-free.png" alt="seat" th:unless="${seatCode.status=='booked'}" onclick="booked2(this)">
                                         <span class="sit-num" th:text="${seatCode.codeSeat}"></span>
+                                        <input type="hidden" th:value="${seatCode.id}">
+                                        <input type="hidden" th:value="${seatCode.price}">
                                     </li>
                                 </ul>
                             </li>
@@ -141,7 +163,7 @@
                 </ul>
             </div>
         </div>
-        <div class="proceed-book bg_img" data-background="../images/movie/movie-bg-proceed.jpg">
+        <div class="proceed-book bg_img" data-background="/images/movie/movie-bg-proceed.jpg">
             <div class="proceed-to-book">
                 <div class="book-item">
                     <span>You have Choosed Seat</span>
@@ -149,10 +171,14 @@
                 </div>
                 <div class="book-item">
                     <span>total price</span>
-                    <h3 class="title">$150</h3>
+                    <div style="display: flex">
+                        <h3 class="title">$</h3>
+                        <h3 class="title">0</h3>
+                    </div>
+
                 </div>
                 <div class="book-item">
-                    <a href="movie-checkout.html" class="custom-button">proceed</a>
+                    <a style="cursor: pointer" class="custom-button proceed" >Next</a>
                 </div>
             </div>
         </div>
@@ -174,24 +200,85 @@
 <script type="text/javascript" th:src="@{/js/viewport.jquery.js}"></script>
 <script type="text/javascript" th:src="@{/js/nice-select.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
-<script>
-    const order = localStorage.getItem('order');
-    const orderParse = JSON.parse(order);
-    $('.item.date-item .date').html(orderParse.showingDate);
-    $('.item.date-item .time').html(formatDate(orderParse.showingTime));
+<script >
+        const seatChoosed = document.querySelector('.proceed-to-book').childNodes[1].childNodes[3];
+        const seatPrice = document.querySelector('.proceed-to-book').childNodes[3].childNodes[3].childNodes[3];
+        let count = 0;
+        const id = document.querySelector('#id-movie').value;
+        const order = localStorage.getItem('order');
+        const orderParse = JSON.parse(order);
+        const seatArr = []
 
-    function booked(e){
 
-        if(e.childNodes[1].src==="http://localhost:8080/images/movie/seat01-free.png"){
-            e.childNodes[1].src='../images/movie/seat01-booked.png';
-            const choosed = document.querySelector('.proceed-to-book').childNodes[1].childNodes[3];
-            choosed.innerHTML = choosed.innerHTML+e.childNodes[3].innerHTML+",";
-        }else{
-            e.childNodes[1].src='../images/movie/seat01-free.png';
+        function booked1(e) {
+            const link1 = "http://localhost:8080/images/movie/seat01-free.png";
+            if (e.src === link1) {
+                if (count < 5) {
+                    e.src = '/images/movie/seat01-booked.png';
+                    const idSeat = e.parentElement.childNodes[5].value;
+                    const code = e.parentElement.childNodes[3];
+                    const price = Number(e.parentElement.childNodes[7].value);
+                    const priceNew = Number(seatPrice.innerHTML) + price
+                    const text = seatChoosed.innerHTML + code.innerHTML + " ";
+                    seatChoosed.innerHTML = text;
+                    seatPrice.innerHTML = priceNew;
+                    seatArr.push(idSeat);
+                    count++;
+                } else {
+                    $('.window-warning.maximum').removeClass("inActive")
+                }
+
+
+            } else {
+                e.src = '/images/movie/seat01-free.png';
+            }
         }
 
+        function booked2(e) {
+            const link2 = "http://localhost:8080/images/movie/seat02-free.png";
+            if (e.src === link2) {
+                if (count < 5) {
+                    e.src = '/images/movie/seat02-booked.png';
+                    const idSeat = e.parentElement.childNodes[5].value;
+                    const code = e.parentElement.childNodes[3];
+                    const text = seatChoosed.innerHTML + code.innerHTML + " ";
+                    const price = Number(e.parentElement.childNodes[7].value);
+                    const priceNew = Number(seatPrice.innerHTML) + price
+                    seatChoosed.innerHTML = text;
+                    seatPrice.innerHTML = priceNew;
+                    seatArr.push(idSeat);
+                    count++;
+                } else {
+                    $('.window-warning.maximum').removeClass("inActive")
+                }
 
-    }
+            } else {
+                e.src = '/images/movie/seat02-free.png';
+            }
+        }
+        $('.custom-button.proceed').click(
+            function (){
+            if (seatArr.length > 0) {
+                orderParse.seats = seatArr;
+                localStorage.setItem('orderNew', JSON.stringify(orderParse));
+
+                window.location.href='/combo/'+orderParse.movieId+"/"+orderParse.theatreId+"/"+orderParse.timeShowing+"/"+orderParse.showingDate+"/"+seatArr;
+            } else {
+                $('.window-warning.choose').removeClass("inActive")
+            }
+        }
+        )
+        $('.custom-button.seatPlanButton.maximum').click(
+            function () {
+                $('.window-warning.maximum').addClass("inActive")
+            }
+        )
+        $('.custom-button.seatPlanButton.choose').click(
+            function () {
+                $('.window-warning.choose').addClass("inActive")
+            }
+        )
+
 </script>
 </body>
 </html>
