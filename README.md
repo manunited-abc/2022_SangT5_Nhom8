@@ -1,4 +1,4 @@
 # Datebase Diagram: 
-https://online.visual-paradigm.com/share.jsp?id=313938373434362d31
+![alt text](https://30112001.tk/Store/image/DB_Diagram.png)
 # Class Diagram
 ![alt text](https://manunited-abc.github.io/play_music/img/Nhom8.png)
