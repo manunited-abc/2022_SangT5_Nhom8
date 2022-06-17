@@ -29,12 +29,12 @@ public class SignWithGoogle {
             User userSuccessLogin = userService.isPasswordCorrect(googlePojo.getEmail(), encryptPassword);
             HttpSession session = request.getSession(true);
             session.setAttribute("user",userSuccessLogin);
-            return "index";
+            return "redirect:/index";
         }
         else {
             String encryptPassword = userService.encryptPassword(googlePojo.getId());
             userService.insertUser(googlePojo.getEmail(), encryptPassword, "customer");
-            return "index";
+            return "redirect:/index";
         }
     }
 }

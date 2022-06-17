@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -34,12 +35,18 @@
                 <li>
                     <a href="contact.html">contact</a>
                 </li>
+                <!-- B1 - Usecase Sign In               -->
                 <li class="header-button pr-0" th:if="${user==null}">
-                    <a th:href=@{'/'+signIn} >Sign In</a>
+                    <a th:href=@{/signIn} >Sign In</a>
                 </li>
                 <li class="header-button pr-0" th:unless="${user==null}">
-                    <a th:href=@{'/'+logout} >Logout</a>
+                    <a th:href=@{/userUpdate} th:text=" ${user.email}"></a>
+                    <a th:href=@{/logout} onclick="cleanCookie()" style="padding: 10px 18px" title="Logout" data-toggle="tooltip" data-placement="bottom" ><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                 </li>
+                <li class="header-button pr-0" th:unless="${user==null}">
+
+                </li>
+
             </ul>
             <div class="header-bar d-lg-none">
                 <span></span>
@@ -50,4 +57,9 @@
     </div>
 </header>
 </body>
+<script>
+    function cleanCookie(){
+        localStorage.clear()
+    }
+</script>
 </html>

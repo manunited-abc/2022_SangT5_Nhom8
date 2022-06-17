@@ -13,4 +13,5 @@ public interface UserService {
     public User isPasswordCorrect(String email, String password);
     public boolean insertUser(String email, String password, String role);
     public String encryptPassword(String password);
+
 }

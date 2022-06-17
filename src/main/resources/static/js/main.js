@@ -369,16 +369,38 @@
         $(".qtybutton").on("click", function() {
             var $button = $(this);
             var nameCombo = $button.parent().parent().parent().find('.subtitle.name-combo a').html()
+            var priceUnit = $button.parent().parent().parent().parent().find(".offer-tag").html();
+            var priceUnitFormat = priceUnit.substring(1,priceUnit.length)
             var priceCombo = $('#price-combo')
+            var price = priceCombo.html().substring(1,priceCombo.html().length)
             var oldValue = $button.parent().find("input").val();
+            var nameComboList = $('#name-combo-list')
+            var priceTicketCombo = $('#price-ticket-combo')
+            var priceTicketComboFormat = priceTicketCombo.html().substring(1,priceTicketCombo.html().length)
+            var pricePayment = $('#price-payment')
+            var priceTicket = $('#price-ticket')
+            var priceTicketFormat = priceTicket.html().substring(1,priceTicket.html().length)
+            console.log(priceUnit)
             if ($button.text() === "+") {
                 var newVal = parseFloat(oldValue) + 1;
+                var priceTotal =parseFloat(price) +parseFloat(priceUnitFormat);
+                priceCombo.html('$'+priceTotal)
+                var priceTotal2 = parseFloat(priceTicketFormat)+ priceTotal;
+                priceTicketCombo.html('$'+priceTotal2)
+                var priceTotal3 = priceTotal2;
+                pricePayment.html('$'+priceTotal3)
             } else {
                 // Don't allow decrementing below zero
                 if (oldValue > 0) {
                     var newVal = parseFloat(oldValue) - 1;
+                    var priceTotal =parseFloat(price) -parseFloat(priceUnitFormat);
+                    priceCombo.html('$'+priceTotal)
+                    var priceTotal2 = parseFloat(priceTicketFormat)+priceTotal;
+                    priceTicketCombo.html('$'+priceTotal2)
+                    var priceTotal3 = priceTotal2;
+                    pricePayment.html('$'+priceTotal3)
                 } else {
-                    newVal = 1;
+                    newVal = 0;
                 }
             }
             $button.parent().find("input").val(newVal);

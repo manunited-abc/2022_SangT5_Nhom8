@@ -105,6 +105,7 @@
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 
 <script>
+
   $("#submit-logIn").click((e)=>{
             e.preventDefault()
             if ($("#email2").val()=="") {
@@ -128,9 +129,22 @@
                   $("#password-validation").html(response)
                 }
                 else {
-                  const order = localStorage.getItem("order")
-                  const orderParse = JSON.parse(order);
-                   window.location.href = "movie-seat-plan/"+orderParse.movieId+"/"+orderParse.theatreId+"/"+orderParse.timeShowing+"/"+orderParse.showingDate;
+                  try {
+                    const order = localStorage.getItem("order")
+                    const orderParse = JSON.parse(order);
+                    let url = String(new URL(document.referrer).pathname);
+                    let pattern = new RegExp("movie-ticket-plan")
+                    if (pattern.test(url)) {
+                      window.location.href = "movie-seat-plan/" + orderParse.movieId + "/"
+                              + orderParse.theatreId + "/" + orderParse.timeShowing + "/" + orderParse.showingDate;
+                    } else {
+                      window.location.href = document.referrer
+                    }
+                  }
+                  catch (err) {
+                    window.location.href = "/"
+                  }
+
                 }
               }
             });

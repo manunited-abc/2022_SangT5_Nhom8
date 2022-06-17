@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nlu.nhcnpm.nhom8.entity.City;
 import nlu.nhcnpm.nhom8.entity.Theatre;
+import nlu.nhcnpm.nhom8.entity.User;
 import nlu.nhcnpm.nhom8.model.dto.CityDto;
 import nlu.nhcnpm.nhom8.model.dto.MovieDto;
 import nlu.nhcnpm.nhom8.model.dto.TheatreDto;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -30,13 +32,16 @@ public class MovieTicketPlanController {
     @Autowired
     TheatreService theatreService;
     @GetMapping("movie-ticket-plan/{id}")
-    public String movieTicketPlan(Model model, @PathVariable int id) {
+    public String movieTicketPlan(Model model, @PathVariable int id,HttpServletRequest request) {
         MovieDto movieDto = movieService.getMovieById(id);
         movieDto.setShowTimes(showTimes(movieDto));
         model.addAttribute("movie",movieDto);
 
         List<CityDto> cityDtos = cityService.getAllCity();
         model.addAttribute("cities",cityDtos);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user",user);
 
         return "movie-ticket-plan";
     }

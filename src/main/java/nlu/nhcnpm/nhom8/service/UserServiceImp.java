@@ -13,6 +13,7 @@ public class UserServiceImp implements UserService{
     @Autowired
     UserRepository userRepository;
 
+
     @Override
     public boolean isEmailExist(String email) {
         String checkEmail = userRepository.findByEmail(email);

@@ -34,7 +34,7 @@ public class SignUpController {
         }
         String encryptPassword = userService.encryptPassword(user.getPassword());
         userService.insertUser(user.getEmail(), encryptPassword, "customer");
-        return "index";
+        return "redirect:/signIn";
     }
 
 

@@ -51,9 +51,10 @@ public class MovieSeatPlanController {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null) {
+        model.addAttribute("user",user);
+        if(user!=null) {
             return "movie-seat-plan";
-        } else {
+        }else{
             return "redirect:/signIn";
         }
     }

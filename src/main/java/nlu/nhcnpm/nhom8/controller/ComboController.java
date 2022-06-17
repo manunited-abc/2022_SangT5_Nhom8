@@ -1,6 +1,7 @@
 package nlu.nhcnpm.nhom8.controller;
 
 import nlu.nhcnpm.nhom8.entity.Seat;
+import nlu.nhcnpm.nhom8.entity.User;
 import nlu.nhcnpm.nhom8.model.dto.ComboFoodDto;
 import nlu.nhcnpm.nhom8.model.dto.MovieDto;
 import nlu.nhcnpm.nhom8.model.dto.SeatDto;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +36,7 @@ public class ComboController {
     @GetMapping("combo/{idMovie}/{idTheatre}/{time}/{date}/{idSeat}")
     public String combo(Model model, @PathVariable String idMovie,
                         @PathVariable String idTheatre, @PathVariable String time,
-                        @PathVariable String date, @PathVariable String idSeat){
+                        @PathVariable String date, @PathVariable String idSeat, HttpServletRequest request){
 
         MovieDto movieDto = movieService.getMovieById(Integer.parseInt(idMovie));
         model.addAttribute("movie", movieDto);
@@ -63,6 +66,14 @@ public class ComboController {
         List<ComboFoodDto> comboFoodDtos = comboFoodService.getAllComboFood();
         model.addAttribute("comboFoods", comboFoodDtos);
 
-        return "combo";
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user",user);
+        if(user!=null) {
+            return "combo";
+        }else{
+            return "redirect:/signIn";
+        }
+
     }
 }
