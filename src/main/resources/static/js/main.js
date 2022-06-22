@@ -1,6 +1,12 @@
 (function($) {
     "user strict";
     // Preloader Js
+    const idCombos =[-1];
+    $("#btn-next").click(function (){
+      const orderParse = JSON.parse(localStorage.getItem("orderNew"))
+        orderParse.combos = idCombos;
+        window.location.href='/checkout/'+orderParse.movieId+"/"+orderParse.theatreId+"/"+orderParse.timeShowing+"/"+orderParse.showingDate+"/"+orderParse.seats+"/"+idCombos;
+    })
     $(window).on('load', function() {
         $('.preloader').fadeOut(1000);
         var img = $('.bg_img');
@@ -368,7 +374,8 @@
         CartPlusMinus.append('<div class="inc qtybutton">+</div>');
         $(".qtybutton").on("click", function() {
             var $button = $(this);
-            var nameCombo = $button.parent().parent().parent().find('.subtitle.name-combo a').html()
+            var idCombo = $button.parent().parent().parent().find('.subtitle.name-combo input').val()
+
             var priceUnit = $button.parent().parent().parent().parent().find(".offer-tag").html();
             var priceUnitFormat = priceUnit.substring(1,priceUnit.length)
             var priceCombo = $('#price-combo')
@@ -380,8 +387,8 @@
             var pricePayment = $('#price-payment')
             var priceTicket = $('#price-ticket')
             var priceTicketFormat = priceTicket.html().substring(1,priceTicket.html().length)
-            console.log(priceUnit)
             if ($button.text() === "+") {
+                idCombos.push(idCombo);
                 var newVal = parseFloat(oldValue) + 1;
                 var priceTotal =parseFloat(price) +parseFloat(priceUnitFormat);
                 priceCombo.html('$'+priceTotal)
@@ -389,9 +396,11 @@
                 priceTicketCombo.html('$'+priceTotal2)
                 var priceTotal3 = priceTotal2;
                 pricePayment.html('$'+priceTotal3)
+                console.log(idCombos);
             } else {
                 // Don't allow decrementing below zero
                 if (oldValue > 0) {
+                    idCombos.pop();
                     var newVal = parseFloat(oldValue) - 1;
                     var priceTotal =parseFloat(price) -parseFloat(priceUnitFormat);
                     priceCombo.html('$'+priceTotal)
@@ -399,6 +408,7 @@
                     priceTicketCombo.html('$'+priceTotal2)
                     var priceTotal3 = priceTotal2;
                     pricePayment.html('$'+priceTotal3)
+                    console.log(idCombos);
                 } else {
                     newVal = 0;
                 }
