@@ -57,4 +57,12 @@ public class UserServiceImp implements UserService{
         userRepository.save(user);
         return true;
     }
+    public void updateUser(User u) {
+        userRepository.save(u);
+
+    }
+    public void changePassword(User u) {
+        userRepository.save(u);
+
+    }
 }

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/all.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/flaticon.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/magnific-popup.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/odometer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.carousel.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/owl.theme.default.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nice-select.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}"/>
+    <style>
+        .update-user-form{
+            position: relative;
+            margin: 250px auto;
+            width: 900px;
+            padding: 10px 25px;
+            background-color: #368d75;
+            -webkit-box-shadow: 1px 2px 18px -1px rgba(54,141,117,1);
+            -moz-box-shadow: 1px 2px 18px -1px rgba(54,141,117,1);
+            box-shadow: 1px 2px 18px -1px rgba(54,141,117,1);
+
+        }
+        .update-user-form button{
+            margin: 50px auto 20px;
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient( #5560ff 17%, #aa52a1 63%, #ff4343 100%);
+            border:none;
+            border-radius: 25px;
+            padding: 10px 50px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .update-user-item{
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .update-user-item label{
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+
+        }
+        .update-user-item input{
+            color: #000;
+        }
+
+
+
+        @keyframes rightLeft {
+            from {
+                /*opacity: 0;*/
+                margin-right: -100px;
+            }
+            to{
+                /*opacity: 1;*/
+                margin-right: 100px;
+            }
+
+        }
+        /*onMouseOver="this.style.color='#f00'"*/
+        /*onMouseOut="this.style.color='#000'"*/
+
+    </style>
+
+</head>
+<body>
+
+<!-- ==========Preloader========== -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ==========Overlay========== -->
+<div class="overlay"></div>
+<a href="#0" class="scrollToTop">
+    <i class="fas fa-angle-up"></i>
+</a>
+<header th:replace="header :: header"></header>
+<form class = "update-user-form" action="updateUser">
+    <div class="update-user-item">
+        <label for="name" >Name</label>
+        <input type="text" name="name" id="name" th:value="${user.name}" pattern="[A-Za-z_ ]{1,32}" title="Name not contain number" required >
+    </div>
+    <div class="update-user-item">
+        <label for="phone" >Phone Number</label>
+        <input type="text" name="phone" id="phone" th:value="${user.phoneNumber}" pattern="[0]{1}[1-9]{9}" title="Phone number with 0 and remaing 9 digit with 1-9"  required>
+    </div>
+    <div class="update-user-item">
+        <label for="email" >Email</label>
+        <input type="email" name="email" id="email" th:value="${user.email}" readonly>
+    </div>
+    <p style="color: red" class="notify"></p>
+    <button class="btn btn-primary" type="submit" id="updateUserButton">Update</button>
+</form>
+
+<div class ="toast-message-main" id ="toast-message-main" th:if="${testValue}" style="position: absolute; top: 100px ;right: 0 ;display: block ; animation: rightLeft 1s linear ; " >
+
+    <div class="message-success" style="width: 200px; padding: 10px;background-color: #49A058 ;border-radius: 5px ; position: relative">
+        <div class="toast-message-desc" style="display: flex;align-items: center;justify-content: space-between">
+            <i class="fa-solid fa-check" style="    color: #4CA25C;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 10px;
+    font-weight: 600; width: 20%;"></i>
+            <p style="width: 80% ; padding-left: 15px">
+                        <span style="font-size: 18px;
+    font-weight: bold;">Success</span>
+
+            </p>
+
+        </div>
+        <i class="fa-solid fa-xmark" style="position: absolute; top: 5px ; right: 10px ; color: #fff;font-size: 15px"></i>
+    </div>
+</div>
+<!--<div class="message-fail" style="position: absolute; top: 0 ; left: 0; width: 200px;height: 200px" th:unless="${isSuccess}">-->
+<!--    <p>That bai</p>-->
+<!--</div>-->
+
+<footer th:replace="footer :: footer"></footer>
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/modernizr-3.6.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/magnific-popup.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/wow.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/countdown.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/odometer.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/viewport.jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/nice-select.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<!--<script>-->
+<!--    var toastMessageMain =document.getElementsByClassName('toast-message-main')-->
+
+<!--    function  showHideToast(){-->
+<!--        toastMessageMain.style.display='none'-->
+<!--        console.log('haha')-->
+<!--    }-->
+<!--    showHideToast()-->
+
+<!--    setTimeout(showHideToast,3000)-->
+<!--</script>-->
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+</body>
+</html>

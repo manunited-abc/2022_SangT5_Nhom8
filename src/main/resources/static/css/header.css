@@ -1,0 +1,15 @@
+.user-info-item li:hover a{
+
+    color: #000;
+}
+.user-info-item::before{
+    transform: rotate(319deg);
+    top: -7px;
+    position: absolute;
+    content: '';
+    border-top: 10px solid rgb(49, 215, 169);
+    border-right: 10px solid rgb(49, 215, 169);
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    right: 4px;
+}
