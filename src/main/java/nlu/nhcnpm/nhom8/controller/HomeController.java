@@ -22,8 +22,11 @@ public class HomeController {
         List<MovieDto> movieDtos = movieService.getMovieNowShowing();
         model.addAttribute("movies",movieDtos);
         HttpSession session = request.getSession();
+
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
+
+
 
         return "index";
     }

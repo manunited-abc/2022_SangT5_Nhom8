@@ -34,6 +34,7 @@ public class ChangePasswordController {
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
+
         return "changePassword";
     }
 }
