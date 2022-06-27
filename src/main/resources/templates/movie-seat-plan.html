@@ -125,7 +125,7 @@
                                 <ul >
                                     <li class="single-seat" th:each="seatCode : ${seat.value} " >
                                             <img src="/images/movie/seat01.png" alt="seat" th:if="${seatCode.status=='booked'}" class=""  >
-                                            <img src="/images/movie/seat01-free.png" alt="seat" th:unless="${seatCode.status=='booked'}" onclick="booked1(this)" >
+                                            <img src="/images/movie/seat01-free.png" alt="seat" th:unless="${seatCode.status=='booked'}" onclick="showSeatSelectedAndUpdatePrice1(this)" >
                                             <span class="sit-num" th:text="${seatCode.codeSeat}"></span>
                                         <input type="hidden" th:value="${seatCode.id}">
                                         <input type="hidden" th:value="${seatCode.price}">
@@ -149,7 +149,7 @@
                                 <ul>
                                     <li class="single-seat" th:each="seatCode : ${seat.value} ">
                                         <img src="/images/movie/seat02.png" alt="seat" th:if="${seatCode.status=='booked'}">
-                                        <img src="/images/movie/seat02-free.png" alt="seat" th:unless="${seatCode.status=='booked'}" onclick="booked2(this)">
+                                        <img src="/images/movie/seat02-free.png" alt="seat" th:unless="${seatCode.status=='booked'}" onclick="showSeatSelectedAndUpdatePrice2(this)">
                                         <span class="sit-num" th:text="${seatCode.codeSeat}"></span>
                                         <input type="hidden" th:value="${seatCode.id}">
                                         <input type="hidden" th:value="${seatCode.price}">
@@ -178,6 +178,7 @@
 
                 </div>
                 <div class="book-item">
+                    <!--9 . Bấm nút "Next"-->
                     <a style="cursor: pointer" class="custom-button proceed" >Next</a>
                 </div>
             </div>
@@ -210,9 +211,10 @@
         const seatArr = []
 
 
-        function booked1(e) {
+        function showSeatSelectedAndUpdatePrice1(e) {
             const link1 = "http://localhost:8080/images/movie/seat01-free.png";
             if (e.src === link1) {
+                // 8.1 Hiển thị các ghế đã chọn và cập nhật giá
                 if (count < 5) {
                     e.src = '/images/movie/seat01-booked.png';
                     const idSeat = e.parentElement.childNodes[5].value;
@@ -224,7 +226,9 @@
                     seatPrice.innerHTML = priceNew;
                     seatArr.push(idSeat);
                     count++;
-                } else {
+                }
+                // 8.2 Hiển thị thông báo chỉ chọn tối đa 5 ghế
+                else {
                     $('.window-warning.maximum').removeClass("inActive")
                 }
 
@@ -234,7 +238,7 @@
             }
         }
 
-        function booked2(e) {
+        function showSeatSelectedAndUpdatePrice2(e) {
             const link2 = "http://localhost:8080/images/movie/seat02-free.png";
             if (e.src === link2) {
                 if (count < 5) {
@@ -256,28 +260,33 @@
                 e.src = '/images/movie/seat02-free.png';
             }
         }
+
         $('.custom-button.proceed').click(
             function (){
+                //9.1 Chuyển đến ComboController
             if (seatArr.length > 0) {
                 orderParse.seats = seatArr;
                 localStorage.setItem('orderNew', JSON.stringify(orderParse));
 
                 window.location.href='/combo/'+orderParse.movieId+"/"+orderParse.theatreId+"/"+orderParse.timeShowing+"/"+orderParse.showingDate+"/"+seatArr;
-            } else {
+            }
+                //9.2 Hiển thị thông báo chưa chọn ghế
+            else {
                 $('.window-warning.choose').removeClass("inActive")
             }
         }
         )
-        $('.custom-button.seatPlanButton.maximum').click(
-            function () {
-                $('.window-warning.maximum').addClass("inActive")
-            }
-        )
-        $('.custom-button.seatPlanButton.choose').click(
-            function () {
-                $('.window-warning.choose').addClass("inActive")
-            }
-        )
+
+            $('.custom-button.seatPlanButton.maximum').click(
+                function () {
+                    $('.window-warning.maximum').addClass("inActive")
+                }
+            )
+            $('.custom-button.seatPlanButton.choose').click(
+                function () {
+                    $('.window-warning.choose').addClass("inActive")
+                }
+            )
 
 </script>
 </body>

@@ -30,4 +30,9 @@ public class TheatreServiceImp implements TheatreService{
     public TheatreDto getTheatreById(int id) {
         return Mapper.toTheatreDto(theatreRepository.findAllById(id));
     }
+
+    @Override
+    public Theatre getTheatreById2(int id) {
+        return theatreRepository.findAllById(id);
+    }
 }

@@ -68,24 +68,8 @@ public class Mapper {
         tmp.setIdTheatre(showingTime.getTheatre().getId());
         return tmp;
     }
-    public static SeatDto toSeatDto(Seat seat){
-        SeatDto tmp = new SeatDto();
-        tmp.setId(seat.getId());
-        tmp.setCodeSeat(seat.getCodeSeat());
-        tmp.setTypeSeat(seat.getTypeSeat());
-        tmp.setStatus(seat.getStatus());
-        tmp.setPrice(seat.getPrice());
-        return tmp;
-    }
-    public static ComboFoodDto toComboFood(ComboFood comboFood){
-        ComboFoodDto tmp = new ComboFoodDto();
-        tmp.setId(comboFood.getId());
-        tmp.setNameCombo(comboFood.getNameCombo());
-        tmp.setDescription(comboFood.getDescription());
-        tmp.setPrice(comboFood.getPrice());
-        tmp.setAvatar(comboFood.getAvatar());
-        return tmp;
-    }
+
+
     public static String formatDate(Calendar calendar, String pattern){
         Date date = calendar.getTime();
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);

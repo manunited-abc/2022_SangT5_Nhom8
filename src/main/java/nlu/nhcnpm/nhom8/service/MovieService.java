@@ -11,4 +11,5 @@ public interface MovieService {
     public List<MovieDto> getMovieNowShowing();
     public List<MovieDto> getMovieComingSoon();
     public MovieDto getMovieById(int id);
+    public Movie getMovieById2(int id);
 }

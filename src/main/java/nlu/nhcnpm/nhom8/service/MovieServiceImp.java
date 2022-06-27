@@ -37,6 +37,12 @@ public class MovieServiceImp implements MovieService{
         MovieDto movieDto = Mapper.toMovieDto(movie);
         return movieDto;
     }
+
+    @Override
+    public Movie getMovieById2(int id) {
+        return findById(id);
+    }
+
     public Movie findById(int id){
             Optional<Movie> optionalUser = movieRepository.findById(id);
             Movie movie = new Movie();

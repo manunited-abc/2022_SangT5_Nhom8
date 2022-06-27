@@ -16,16 +16,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "seat_detail")
 public class SeatDetail {
-    @EmbeddedId
-    SeatId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
     @ManyToOne
-    @MapsId("idOrder")
     @JoinColumn(name = "order_id")
     Order order;
 
     @ManyToOne
-    @MapsId("idSeat")
     @JoinColumn(name = "seat_id")
     Seat seat;
 

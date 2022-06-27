@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -27,7 +24,9 @@ public class Order {
     Calendar createDate;
     Calendar showingDate;
     @OneToMany(mappedBy = "order")
-    Set<ComboFoodDetail> comboFoodDetails = new HashSet<>();
+    List<ComboFoodDetail> comboFoodDetails = new ArrayList<>();
+    @OneToMany(mappedBy = "order")
+    List<SeatDetail> seatDetails = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     Movie movie;
     @ManyToOne(fetch = FetchType.LAZY)

@@ -16,17 +16,16 @@ import java.io.Serializable;
 @Component
 @Entity
 @Table(name = "combofood_detail")
-public class ComboFoodDetail  {
-    @EmbeddedId
-    ComboFoodId id;
+public class ComboFoodDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
     @ManyToOne
-    @MapsId("idOrder")
     @JoinColumn(name = "order_id")
     Order order;
 
     @ManyToOne
-    @MapsId("idComboFood")
     @JoinColumn(name = "combofood_id")
     ComboFood comboFood;
 

@@ -1,26 +1,40 @@
 package nlu.nhcnpm.nhom8.service;
 
 import nlu.nhcnpm.nhom8.entity.ComboFood;
-import nlu.nhcnpm.nhom8.model.dto.ComboFoodDto;
-import nlu.nhcnpm.nhom8.model.mapper.Mapper;
+import nlu.nhcnpm.nhom8.entity.ComboFoodDetail;
+import nlu.nhcnpm.nhom8.repository.ComboFooDetailRepository;
 import nlu.nhcnpm.nhom8.repository.ComboFoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ComboFoodServiceImp implements ComboFoodService {
     @Autowired
     ComboFoodRepository comboFoodRepository;
+    @Autowired
+    ComboFooDetailRepository comboFooDetailRepository;
     @Override
-    public List<ComboFoodDto> getAllComboFood() {
+    public List<ComboFood> getAllComboFood() {
         List<ComboFood> comboFoods = comboFoodRepository.findAll();
-        List<ComboFoodDto> comboFoodDtos = new ArrayList<>();
-        for(ComboFood comboFood : comboFoods){
-            comboFoodDtos.add(Mapper.toComboFood(comboFood));
+
+        return comboFoods;
+    }
+
+    @Override
+    public ComboFood getComboFoodById(int id) {
+        return comboFoodRepository.findById(id);
+    }
+
+    @Override
+    public boolean createComboFoodDetail(ComboFoodDetail comboFoodDetail) {
+        try{
+            comboFooDetailRepository.save(comboFoodDetail);
+            return true;
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return false;
         }
-        return comboFoodDtos;
     }
 }

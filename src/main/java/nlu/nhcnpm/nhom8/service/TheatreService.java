@@ -11,4 +11,5 @@ import java.util.List;
 public interface TheatreService{
     public List<TheatreDto> getTheatreByCityId(int id);
     public TheatreDto getTheatreById(int id);
+    public Theatre getTheatreById2(int id);
 }

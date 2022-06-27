@@ -134,6 +134,7 @@
                     const orderParse = JSON.parse(order);
                     let url = String(new URL(document.referrer).pathname);
                     let pattern = new RegExp("movie-ticket-plan")
+                    //7.2.1 Chuyển đến MovieSeatPlanController
                     if (pattern.test(url)) {
                       window.location.href = "movie-seat-plan/" + orderParse.movieId + "/"
                               + orderParse.theatreId + "/" + orderParse.timeShowing + "/" + orderParse.showingDate;

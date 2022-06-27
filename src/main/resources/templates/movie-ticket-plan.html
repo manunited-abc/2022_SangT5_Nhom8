@@ -95,6 +95,7 @@
                     <img src="../images/ticket/city.png" alt="ticket">
                 </div>
                 <span class="type">city</span>
+                <!-- 4. Chọn TP -->
                 <select class="select-bar"  >
                     <div th:each="city : ${cities}" >
                     <option th:value="${city.id}" th:text="${city.nameCity}" ></option>
@@ -107,6 +108,7 @@
                 </div>
                 <span class="type">date</span>
                 <select class="select-bar" >
+                    <!-- 5. Chọn ngày chiếu -->
                     <div th:each="showingDate : ${movie.showTimes}" >
                     <option th:value="${#dates.format(showingDate,'yyyy-MM-dd')}" th:text="${#dates.format(showingDate,'dd-MM-yyyy')}" ></option>
                     </div>
@@ -158,8 +160,8 @@
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 <script>
     requestData(1);
-
-    function showSeatPlan(idTheatre,showingTime){
+    //7. Chuyển đến MovieSeatPlanController
+    function showMovieSeatPlan(idTheatre,showingTime){
         const dateShowing = $('#select-date .current').html()
         const idTheatres = Number(idTheatre)
         const idMovie = $('#movie-id').val()

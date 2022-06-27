@@ -387,6 +387,7 @@
             var pricePayment = $('#price-payment')
             var priceTicket = $('#price-ticket')
             var priceTicketFormat = priceTicket.html().substring(1,priceTicket.html().length)
+            //12. Cập nhật giá
             if ($button.text() === "+") {
                 idCombos.push(idCombo);
                 var newVal = parseFloat(oldValue) + 1;

@@ -117,10 +117,11 @@ function requestData(id){
                             </div>
                         </div>
                         <div class="movie-schedule">
+                        <!-- 6. Chọn rạp và giờ chiếu -->
                         ${theatre.showingTimes.map(function (showTime) {
                             if(!isBeyondTime(showTime.time)){
                          return `            
-                             <div class="item" onclick="showSeatPlan('${theatre.id} ','${showTime.time}')">
+                             <div class="item" onclick="showMovieSeatPlan('${theatre.id} ','${showTime.time}')">
                                 ${formatDate(showTime.time)}
                             </div>
                             `;}else{

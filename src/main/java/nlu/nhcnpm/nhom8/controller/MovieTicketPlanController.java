@@ -32,6 +32,7 @@ public class MovieTicketPlanController {
     @Autowired
     TheatreService theatreService;
     @GetMapping("movie-ticket-plan/{id}")
+    //3. Hiển thị trang MovieTicketPlanGUI
     public String movieTicketPlan(Model model, @PathVariable int id,HttpServletRequest request) {
         MovieDto movieDto = movieService.getMovieById(id);
         movieDto.setShowTimes(showTimes(movieDto));
@@ -42,7 +43,6 @@ public class MovieTicketPlanController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
-
         return "movie-ticket-plan";
     }
 

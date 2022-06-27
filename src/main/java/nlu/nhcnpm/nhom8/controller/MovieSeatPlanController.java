@@ -1,10 +1,8 @@
 package nlu.nhcnpm.nhom8.controller;
 
-import nlu.nhcnpm.nhom8.entity.Order;
 import nlu.nhcnpm.nhom8.entity.Seat;
 import nlu.nhcnpm.nhom8.entity.User;
 import nlu.nhcnpm.nhom8.model.dto.MovieDto;
-import nlu.nhcnpm.nhom8.model.dto.SeatDto;
 import nlu.nhcnpm.nhom8.model.dto.TheatreDto;
 import nlu.nhcnpm.nhom8.service.MovieService;
 import nlu.nhcnpm.nhom8.service.SeatService;
@@ -27,6 +25,7 @@ public class MovieSeatPlanController {
     @Autowired
     TheatreService theatreService;
     @GetMapping("movie-seat-plan/{idMovie}/{idTheatre}/{time}/{date}")
+
     public String movieSeatPlan(Model model, @PathVariable String idMovie,
                                 @PathVariable String idTheatre,@PathVariable String time,
                                 @PathVariable String date, HttpServletRequest request ) {
@@ -40,43 +39,45 @@ public class MovieSeatPlanController {
         model.addAttribute("time",time);
         model.addAttribute("date",date);
 
-        List<SeatDto> seatDtos = seatService.getAllSeat();
+        List<Seat> seat = seatService.getAllSeat();
 
-        List<SeatDto> singleSeats = findSeatByType("single", seatDtos);
-        List<SeatDto> doubleSeats = findSeatByType("double", seatDtos);
-        Map<String, List<SeatDto>> s1 = statisticalSeatByCode(singleSeats);
+        List<Seat> singleSeats = findSeatByType("single", seat);
+        List<Seat> doubleSeats = findSeatByType("double", seat);
+        Map<String, List<Seat>> s1 = statisticalSeatByCode(singleSeats);
         model.addAttribute("singleMap",s1);
-        Map<String, List<SeatDto>> s2 = statisticalSeatByCode(doubleSeats);
+        Map<String, List<Seat>> s2 = statisticalSeatByCode(doubleSeats);
         model.addAttribute("doubleMap",s2);
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         model.addAttribute("user",user);
         if(user!=null) {
+            // 7.1 Chuyển đến trang MovieSeatPlanGUI
             return "movie-seat-plan";
         }else{
+            // 7.2 Chuyển đến trang đang nhập
             return "redirect:/signIn";
         }
     }
-    public List<SeatDto> findSeatByType(String type, List<SeatDto> seats){
-        List<SeatDto> result = new ArrayList<>();
-        for(SeatDto sdto:seats){
-            if(sdto.getTypeSeat().equals(type)){
-                result.add(sdto);
+    public List<Seat> findSeatByType(String type, List<Seat> seats){
+        List<Seat> result = new ArrayList<>();
+        for(Seat s:seats){
+            if(s.getTypeSeat().equals(type)){
+                result.add(s);
             }
         }
         return result;
     }
-    public Map<String, List<SeatDto>> statisticalSeatByCode(List<SeatDto> seats){
-        Map<String,List<SeatDto>> result= new HashMap<>();
-        for(SeatDto seatDto : seats){
+    public Map<String, List<Seat>> statisticalSeatByCode(List<Seat> seats){
+        Map<String,List<Seat>> result= new HashMap<>();
+        for(Seat seatDto : seats){
             String key = seatDto.getCodeSeat().substring(0,1);
             if(result.containsKey(key)){
-                List<SeatDto> seatDtos = result.get(key);
+                List<Seat> seatDtos = result.get(key);
                 seatDtos.add(seatDto);
                 result.put(key,seatDtos);
             }else{
-                List<SeatDto> seatDtos = new ArrayList<>();
+                List<Seat> seatDtos = new ArrayList<>();
                 seatDtos.add(seatDto);
                 result.put(key,seatDtos);
             }
