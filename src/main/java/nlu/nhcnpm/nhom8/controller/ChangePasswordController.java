@@ -27,7 +27,7 @@ public class ChangePasswordController {
             model.addAttribute("user", user);
             model.addAttribute("testValueChangePass",true);
 
-
+            System.out.println("user"+user);
             userService.changePassword(user);
 
 
