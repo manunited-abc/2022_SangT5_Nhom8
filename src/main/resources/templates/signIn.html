@@ -105,50 +105,64 @@
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 
 <script>
+  function checkValidation() {
+    if ($("#email2").val()=="") {
+      $("#email-validation").text("email must be not empty")
+      return false
+    }
+    else if ($("#pass3").val()=="") {
+      $("#password-validation").text("password must be not empty")
+      return false
+    }
+    else {
+      return true
+    }
+  }
+  function submitForm() {
+    $.ajax({
+      url : $(".account-form").attr('action'),
+      type : 'post',
+      data : $(".account-form").serialize(),
+      success : function(response) {
+        if (response.includes("email")) {
+          $("#email-validation").html(response)
+          $("#password-validation").text("")
+        }
+        else if (response.includes("password")) {
+          $("#password-validation").html(response)
+        }
+        else {
+          try {
+            const order = localStorage.getItem("order")
+            const orderParse = JSON.parse(order);
+            let url = String(new URL(document.referrer).pathname);
+            let pattern = new RegExp("movie-ticket-plan")
+            //7.2.1 Chuyển đến MovieSeatPlanController
+            if (pattern.test(url)) {
+              window.location.href = "movie-seat-plan/" + orderParse.movieId + "/"
+                      + orderParse.theatreId + "/" + orderParse.timeShowing + "/" + orderParse.showingDate;
+            } else {
+              window.location.href = document.referrer
+            }
+          }
+          catch (err) {
+            window.location.href = "/"
+          }
+
+        }
+      }
+    });
+  }
+
 
   $("#submit-logIn").click((e)=>{
             e.preventDefault()
-            if ($("#email2").val()=="") {
-              $("#email-validation").text("email must be not empty")
+            if (!checkValidation()) {
               return
             }
-            else if ($("#pass3").val()=="") {
-              $("#password-validation").text("password must be not empty")
-              return
+            else {
+              submitForm()
             }
-            $.ajax({
-              url : $(".account-form").attr('action'),
-              type : 'post',
-              data : $(".account-form").serialize(),
-              success : function(response) {
-                if (response.includes("email")) {
-                  $("#email-validation").html(response)
-                  $("#password-validation").text("")
-                }
-                else if (response.includes("password")) {
-                  $("#password-validation").html(response)
-                }
-                else {
-                  try {
-                    const order = localStorage.getItem("order")
-                    const orderParse = JSON.parse(order);
-                    let url = String(new URL(document.referrer).pathname);
-                    let pattern = new RegExp("movie-ticket-plan")
-                    //7.2.1 Chuyển đến MovieSeatPlanController
-                    if (pattern.test(url)) {
-                      window.location.href = "movie-seat-plan/" + orderParse.movieId + "/"
-                              + orderParse.theatreId + "/" + orderParse.timeShowing + "/" + orderParse.showingDate;
-                    } else {
-                      window.location.href = document.referrer
-                    }
-                  }
-                  catch (err) {
-                    window.location.href = "/"
-                  }
-
-                }
-              }
-            });
           }
   )
 </script>

@@ -49,8 +49,12 @@ public class SignInController {
             model.addAttribute("passwordValidation", "password is wrong");
             return "signIn :: password-validation";
         }
-        HttpSession session = request.getSession(true);
-        session.setAttribute("user",userSuccessLogin);
+        saveUserToSession(request, user);
         return "index";
+    }
+
+    private void saveUserToSession(HttpServletRequest request, User user) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("user",user);
     }
 }
